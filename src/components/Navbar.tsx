@@ -21,7 +21,7 @@ const Navbar = () => {
       const id = href.slice(1);
       const el = document.getElementById(id);
       if (el) {
-        const offset = 64;
+        const offset = 56;
         const y = el.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top: y, behavior: "smooth" });
       }
@@ -31,22 +31,22 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-background/60 backdrop-blur-2xl backdrop-saturate-150 border-b border-border/30">
-      <div className="container mx-auto flex h-14 items-center justify-between px-4">
+    <nav className="sticky top-0 z-50 w-full bg-background/70 backdrop-blur-xl border-b border-border/20">
+      <div className="container mx-auto flex h-12 items-center justify-between px-4">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2 group">
-          <div className="h-7 w-7 rounded-md bg-primary/90 flex items-center justify-center">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+        <a href="/" className="flex items-center gap-1.5">
+          <div className="h-6 w-6 rounded bg-primary/90 flex items-center justify-center">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
           </div>
-          <span className="text-lg font-bold tracking-tight">
+          <span className="text-sm font-bold tracking-tight">
             Claw<span className="text-primary">Pump</span>
           </span>
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-0.5">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -54,7 +54,7 @@ const Navbar = () => {
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
               onClick={(e) => handleNavClick(e, link.href, link.external)}
-              className="px-3 py-1.5 rounded-md text-[13px] font-medium text-muted-foreground/80 hover:text-foreground hover:bg-secondary/40 transition-all duration-150"
+              className="px-3 py-1 rounded text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors duration-150"
             >
               {link.label}
             </a>
@@ -63,7 +63,7 @@ const Navbar = () => {
 
         {/* Connect button */}
         <div className="hidden md:flex items-center">
-          <Button size="sm" className="h-8 px-4 text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg shadow-[0_0_12px_hsl(145_100%_50%/0.15)]">
+          <Button size="sm" className="h-7 px-4 text-[11px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded">
             Connect
           </Button>
         </div>
@@ -71,16 +71,16 @@ const Navbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-muted-foreground hover:text-foreground p-1.5 rounded-md transition-colors"
+          className="md:hidden text-muted-foreground hover:text-foreground p-1 rounded transition-colors"
         >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-border/20 bg-background/95 backdrop-blur-2xl">
-          <div className="container mx-auto px-4 py-3 flex flex-col gap-0.5">
+        <div className="md:hidden border-t border-border/10 bg-background/95 backdrop-blur-xl">
+          <div className="container mx-auto px-4 py-2 flex flex-col gap-0.5">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -88,12 +88,12 @@ const Navbar = () => {
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
                 onClick={(e) => handleNavClick(e, link.href, link.external)}
-                className="text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/30 transition-colors py-2 px-3 rounded-md"
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors py-2 px-3 rounded"
               >
                 {link.label}
               </a>
             ))}
-            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold mt-2 w-full h-9 text-xs rounded-lg">
+            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold mt-1 w-full h-8 text-[11px] rounded">
               Connect
             </Button>
           </div>

@@ -1,90 +1,123 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Terminal, Rocket, Coins, Cpu, ArrowLeftRight, Copy, Zap, Bell, Globe, Wallet } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Terminal, Rocket, Coins, Cpu, ArrowLeftRight, Copy, Zap, Bell, Globe, Wallet, Check } from "lucide-react";
 
 const skills = [
-  { icon: Rocket, label: "Token Launchpad", active: true },
-  { icon: Coins, label: "Passive Earnings", active: false },
-  { icon: Cpu, label: "AI Agent SDK", active: false },
-  { icon: ArrowLeftRight, label: "Swap API", active: false },
-  { icon: Copy, label: "Copy Trading", active: false, soon: true },
-  { icon: Zap, label: "Arbitrage API", active: false },
-  { icon: Globe, label: "Social Amplification", active: false },
-  { icon: Bell, label: "Sniper Alerts", active: false },
-  { icon: Globe, label: "Domain Search", active: false },
-  { icon: Wallet, label: "Self-Funded Launch", active: false },
+  { icon: Rocket, label: "Token Launchpad", desc: "Launch your own token on Solana for free. Zero gas, zero upfront cost.", code: `POST /api/launch\n{\n  "name": "MyAgent",\n  "symbol": "MYAGT",\n  "imageUrl": "https://...",\n  "agentId": "your-agent-id"\n}\n// → Token live on pump.fun in ~3s` },
+  { icon: Coins, label: "Passive Earnings", desc: "Earn 65% of every trading fee from your token automatically.", code: `GET /api/fees/earnings?agentId=your-id\n→ {\n  "totalEarned": 1.52,\n  "pending": 0.12,\n  "feeShare": 0.65\n}` },
+  { icon: Cpu, label: "AI Agent SDK", desc: "Full SDK for autonomous agents to launch, swap, and manage tokens.", code: `import { ClawPump } from "@clawpump/sdk"\n\nconst agent = new ClawPump({ apiKey: "..." })\nawait agent.launch({ name: "MyToken", symbol: "MTK" })\nawait agent.swap({ from: "SOL", to: "USDC", amount: 1 })` },
+  { icon: ArrowLeftRight, label: "Swap API", desc: "Swap any Solana token via Jupiter aggregator with one API call.", code: `POST /api/swap/execute\n{\n  "inputMint": "So11...112",\n  "outputMint": "EPjF...Dt1v",\n  "amount": "1000000000",\n  "slippage": 0.5\n}` },
+  { icon: Copy, label: "Copy Trading", desc: "Mirror top-performing wallets and strategies automatically.", code: `POST /api/copy-trade\n{\n  "targetWallet": "7xKX...3mNp",\n  "allocation": 0.1,\n  "maxSlippage": 1.0\n}\n// Coming soon`, soon: true },
+  { icon: Zap, label: "Arbitrage API", desc: "Scan price gaps across 11 Solana DEXes in real-time.", code: `GET /api/arbitrage/scan\n?inputMint=SOL&outputMint=USDC\n→ {\n  "bestBuy": "Jupiter",\n  "bestSell": "fluxbeam",\n  "netProfit": "3.97 USDC"\n}` },
+  { icon: Globe, label: "Social Amplification", desc: "Get discovered by @clawpumptech and the community.", code: `POST /api/social/amplify\n{\n  "tokenId": "your-token-id",\n  "message": "Just launched!"\n}\n// Auto-tweet + community notification` },
+  { icon: Bell, label: "Sniper Alerts", desc: "Instant webhook alerts when new tokens launch on the platform.", code: `POST /api/alerts/subscribe\n{\n  "webhook": "https://your-app.com/hook",\n  "events": ["token.launched", "price.spike"]\n}` },
+  { icon: Globe, label: "Domain Search", desc: "Search and register domains for your AI agent's presence.", code: `GET /api/domains/search?query=myagent\n→ [\n  { "domain": "myagent.sol", "available": true },\n  { "domain": "myagent.ai", "available": false }\n]` },
+  { icon: Wallet, label: "Self-Funded Launch", desc: "Launch with your own SOL/USDC for higher initial liquidity.", code: `POST /api/launch/funded\n{\n  "name": "MyToken",\n  "symbol": "MTK",\n  "fundingAmount": "5",\n  "fundingMint": "SOL"\n}` },
 ];
 
 const SkillsTerminal = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [copied, setCopied] = useState(false);
+  const active = skills[activeIndex];
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(active.code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
-    <section className="py-24 relative overflow-hidden" id="create">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/3 rounded-full blur-[120px]" />
-      </div>
+    <section className="py-20 relative overflow-hidden" id="create">
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Everything Your Agent <span className="text-primary text-glow">Needs</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-3">
+            Everything Your Agent <span className="text-primary">Needs</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Launch tokens, earn fees, swap, scan arbitrage, and more — all through simple API calls
+          <p className="text-muted-foreground text-sm max-w-lg mx-auto">
+            Launch, earn, swap, scan arbitrage — all through simple API calls
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-xl mx-auto"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="max-w-3xl mx-auto"
         >
-          {/* Terminal window */}
-          <div className="bg-card border border-border rounded-xl overflow-hidden box-glow">
+          <div className="bg-card border border-border/40 rounded-lg overflow-hidden">
             {/* Terminal header */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-secondary/30">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-destructive/60" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
-                <div className="w-3 h-3 rounded-full bg-primary/60" />
+            <div className="flex items-center gap-2 px-3 py-2 border-b border-border/30 bg-secondary/20">
+              <div className="flex gap-1">
+                <div className="w-2.5 h-2.5 rounded-full bg-destructive/40" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
+                <div className="w-2.5 h-2.5 rounded-full bg-primary/40" />
               </div>
-              <div className="flex items-center gap-2 ml-3">
-                <Terminal className="h-3.5 w-3.5 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground font-mono">clawpump</span>
+              <div className="flex items-center gap-1.5 ml-2">
+                <Terminal className="h-3 w-3 text-muted-foreground/50" />
+                <span className="text-[10px] text-muted-foreground/50 font-mono">clawpump-api</span>
               </div>
             </div>
 
-            {/* Skills menu */}
-            <div className="p-2">
-              {skills.map((skill, index) => {
-                const Icon = skill.icon;
-                return (
-                  <button
-                    key={skill.label}
-                    onClick={() => setActiveIndex(index)}
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all duration-200 ${
-                      index === activeIndex
-                        ? "bg-primary/10 text-primary border border-primary/20"
-                        : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground border border-transparent"
-                    }`}
+            <div className="flex flex-col md:flex-row">
+              {/* Skills menu */}
+              <div className="w-full md:w-56 border-b md:border-b-0 md:border-r border-border/20 p-1.5 max-h-[360px] overflow-y-auto">
+                {skills.map((skill, index) => {
+                  const Icon = skill.icon;
+                  return (
+                    <button
+                      key={skill.label}
+                      onClick={() => setActiveIndex(index)}
+                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded text-[11px] transition-all duration-150 ${
+                        index === activeIndex
+                          ? "bg-primary/10 text-primary"
+                          : "text-muted-foreground hover:bg-secondary/40 hover:text-foreground"
+                      }`}
+                    >
+                      <Icon className="h-3 w-3 flex-shrink-0" />
+                      <span className="font-medium truncate">{skill.label}</span>
+                      {skill.soon && (
+                        <span className="ml-auto text-[8px] bg-primary/15 text-primary px-1.5 py-0 rounded font-semibold">
+                          soon
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Detail panel */}
+              <div className="flex-1 p-4">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -8 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <Icon className="h-4 w-4 flex-shrink-0" />
-                    <span className="font-medium">{skill.label}</span>
-                    {skill.soon && (
-                      <span className="ml-auto text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-semibold">
-                        soon
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-sm font-semibold text-foreground">{active.label}</h3>
+                      <button
+                        onClick={handleCopy}
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
+                      </button>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground mb-3 leading-relaxed">{active.desc}</p>
+                    <pre className="bg-secondary/30 rounded p-3 text-[10px] font-mono text-muted-foreground overflow-x-auto leading-relaxed whitespace-pre-wrap">
+                      {active.code}
+                    </pre>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </motion.div>

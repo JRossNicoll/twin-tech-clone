@@ -1,13 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-
-const stats = [
-  { label: "Total Volume", value: 11960000, prefix: "$", suffix: "", format: "compact" },
-  { label: "Total MCap", value: 5350000, prefix: "$", suffix: "", format: "compact" },
-  { label: "Agents Funded", value: 1024, prefix: "", suffix: "", format: "number" },
-  { label: "24h Volume", value: 2440000, prefix: "$", suffix: "", format: "compact" },
-  { label: "Agentic Funding", value: 703.43, prefix: "", suffix: " SOL", format: "decimal" },
-];
+import { usePlatformStats } from "@/hooks/useClawData";
+import { useTokens, useAgents } from "@/hooks/useClawData";
 
 function formatValue(value: number, format: string, prefix: string, suffix: string) {
   let formatted: string;
@@ -54,25 +48,43 @@ function useCountUp(target: number, duration = 2000) {
 }
 
 const StatsBar = () => {
+  const { data: platformStats } = usePlatformStats();
+  const { data: tokens = [] } = useTokens();
+  const { data: agents = [] } = useAgents();
+
+  const totalVolume = platformStats?.total_volume ?? tokens.reduce((s: number, t: any) => s + (t.volume_24h ?? 0), 0);
+  const totalMcap = tokens.reduce((s: number, t: any) => s + (t.mcap ?? 0), 0);
+  const agentCount = platformStats?.active_agents ?? agents.length;
+  const vol24h = tokens.reduce((s: number, t: any) => s + (t.volume_24h ?? 0), 0);
+  const totalEarnings = agents.reduce((s: number, a: any) => s + (a.total_earnings ?? 0), 0);
+
+  const stats = [
+    { label: "Total Volume", value: totalVolume, prefix: "$", suffix: "", format: "compact" },
+    { label: "Total MCap", value: totalMcap, prefix: "$", suffix: "", format: "compact" },
+    { label: "Active Agents", value: agentCount, prefix: "", suffix: "", format: "number" },
+    { label: "24h Volume", value: vol24h, prefix: "$", suffix: "", format: "compact" },
+    { label: "Total Earnings", value: totalEarnings, prefix: "", suffix: " SOL", format: "decimal" },
+  ];
+
   return (
-    <section className="py-12 border-y border-border/30 bg-card/30">
+    <section className="py-8 border-y border-border/20 bg-secondary/10">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
           {stats.map((stat) => {
             const { current, ref } = useCountUp(stat.value);
             return (
               <motion.div
                 key={stat.label}
                 ref={ref}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="text-2xl md:text-3xl font-bold text-primary text-glow font-mono">
+                <div className="text-lg md:text-xl font-bold text-primary font-mono tracking-tight">
                   {formatValue(current, stat.format, stat.prefix, stat.suffix)}
                 </div>
-                <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
+                <div className="text-[10px] text-muted-foreground/50 mt-0.5 uppercase tracking-[0.15em] font-medium">{stat.label}</div>
               </motion.div>
             );
           })}
