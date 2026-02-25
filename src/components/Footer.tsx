@@ -36,8 +36,8 @@ const Footer = () => {
     <footer className="border-t border-border/20 bg-card/30 relative overflow-hidden">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-primary/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-8">
           <div className="col-span-2 md:col-span-1">
             <a href="/" className="flex items-center gap-1.5 mb-4 group">
               <img src={logoImg} alt="ClawBonk logo" className="h-8 w-8 rounded-full" />
@@ -83,7 +83,7 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="border-t border-border/10 pt-8 mb-8">
+        <div className="border-t border-border/10 pt-6 mb-6">
           <div className="max-w-sm mx-auto text-center">
             <h4 className="text-xs font-semibold mb-2">Stay in the loop</h4>
             <p className="text-[10px] text-muted-foreground mb-3">Get updates on new features, agent launches, and ecosystem news.</p>
