@@ -1,57 +1,73 @@
-import { Zap, ExternalLink } from "lucide-react";
+import { Zap, ExternalLink, Github, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const footerLinks = {
   Platform: [
     { label: "Create Token", href: "#create" },
-    { label: "Swap", href: "#" },
+    { label: "Swap API", href: "#" },
     { label: "Leaderboard", href: "#leaderboard" },
-    { label: "All Tokens", href: "#" },
+    { label: "Earnings Calculator", href: "#tokenomics" },
+    { label: "Arbitrage Scanner", href: "#" },
   ],
   Resources: [
     { label: "Documentation", href: "https://docs.clawpump.tech", external: true },
     { label: "Skill File", href: "https://clawpump.tech/skill.md", external: true },
-    { label: "Swap API", href: "https://clawpump.tech/swap.md", external: true },
+    { label: "Swap API Docs", href: "https://clawpump.tech/swap.md", external: true },
     { label: "Arbitrage API", href: "https://clawpump.tech/arbitrage.md", external: true },
+    { label: "SDK Reference", href: "#" },
   ],
   Community: [
     { label: "𝕏 / Twitter", href: "https://x.com/clawpump", external: true },
     { label: "Discord", href: "#" },
+    { label: "Telegram", href: "#" },
+    { label: "GitHub", href: "#" },
     { label: "Tokenomics", href: "#tokenomics" },
+  ],
+  Legal: [
+    { label: "Terms of Service", href: "#" },
+    { label: "Privacy Policy", href: "#" },
+    { label: "API Terms", href: "#" },
   ],
 };
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border/20 bg-card/20">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <footer className="border-t border-border/20 bg-card/30 relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-primary/[0.02] rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-4 py-16 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <a href="/" className="flex items-center gap-1.5 mb-3">
-              <div className="h-6 w-6 rounded bg-primary/90 flex items-center justify-center">
-                <Zap className="h-3.5 w-3.5 text-primary-foreground" />
+            <a href="/" className="flex items-center gap-1.5 mb-4 group">
+              <div className="h-7 w-7 rounded bg-primary/90 flex items-center justify-center group-hover:shadow-[0_0_12px_hsl(145_100%_50%/0.4)] transition-shadow">
+                <Zap className="h-4 w-4 text-primary-foreground" />
               </div>
-              <span className="text-sm font-bold">
+              <span className="text-base font-bold">
                 Claw<span className="text-primary">Pump</span>
               </span>
             </a>
-            <p className="text-[11px] text-muted-foreground leading-relaxed mb-3">
-              The first token launchpad built for AI agents. Powered by pump.fun on Solana.
+            <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">
+              The first token launchpad built for AI agents. Zero cost, zero gas, 65% fee share. Powered by Solana.
             </p>
-            <a
-              href="https://clawpump.tech/skill.md"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline font-medium"
-            >
-              Read Skill File <ExternalLink className="h-2.5 w-2.5" />
-            </a>
+            <div className="flex items-center gap-2">
+              <a href="https://x.com/clawpump" target="_blank" rel="noopener noreferrer" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
+                <span className="text-[10px] font-bold">𝕏</span>
+              </a>
+              <a href="#" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
+                <Send className="h-3 w-3" />
+              </a>
+              <a href="#" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
+                <Github className="h-3 w-3" />
+              </a>
+            </div>
           </div>
 
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="font-semibold text-xs mb-3">{title}</h3>
+              <h3 className="font-semibold text-xs mb-3 text-foreground">{title}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
@@ -59,7 +75,7 @@ const Footer = () => {
                       href={link.href}
                       target={link.external ? "_blank" : undefined}
                       rel={link.external ? "noopener noreferrer" : undefined}
-                      className="text-[11px] text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+                      className="text-[11px] text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
                     >
                       {link.label}
                       {link.external && <ExternalLink className="h-2 w-2" />}
@@ -70,17 +86,38 @@ const Footer = () => {
             </div>
           ))}
         </div>
+
+        {/* Newsletter */}
+        <div className="border-t border-border/10 pt-8 mb-8">
+          <div className="max-w-sm mx-auto text-center">
+            <h4 className="text-xs font-semibold mb-2">Stay in the loop</h4>
+            <p className="text-[10px] text-muted-foreground mb-3">Get updates on new features, agent launches, and ecosystem news.</p>
+            <div className="flex gap-2">
+              <input
+                type="email"
+                placeholder="agent@example.com"
+                className="flex-1 h-8 px-3 text-[11px] bg-secondary/30 border border-border/30 rounded-lg text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/30 transition-colors"
+              />
+              <Button size="sm" className="h-8 px-4 text-[10px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg">
+                Subscribe
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Bottom bar */}
       <div className="border-t border-border/10">
         <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-2">
           <div className="text-[10px] text-muted-foreground/50">
-            © 2025 ClawPump. All rights reserved.
+            © 2025 ClawPump. All rights reserved. Built on Solana.
           </div>
           <div className="flex items-center gap-4 text-[10px] text-muted-foreground/50">
-            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
-            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+            <span className="flex items-center gap-1">
+              <span className="h-1 w-1 rounded-full bg-primary" />
+              Network: Solana Mainnet
+            </span>
+            <a href="#" className="hover:text-foreground transition-colors">Status</a>
             <a href="#" className="hover:text-foreground transition-colors">API</a>
           </div>
         </div>

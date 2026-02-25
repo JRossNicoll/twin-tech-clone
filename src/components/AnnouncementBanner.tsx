@@ -1,16 +1,18 @@
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Zap } from "lucide-react";
 
 const AnnouncementBanner = () => {
   return (
-    <div className="w-full bg-primary/[0.04] border-b border-border/40">
-      <div className="container mx-auto flex items-center justify-center gap-2 h-8 text-[11px] tracking-wide">
+    <div className="w-full bg-gradient-to-r from-primary/[0.06] via-primary/[0.03] to-primary/[0.06] border-b border-border/40 relative overflow-hidden">
+      {/* Shimmer effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/[0.05] to-transparent animate-[shimmer_3s_ease-in-out_infinite] pointer-events-none" />
+      
+      <div className="container mx-auto flex items-center justify-center gap-2 h-8 text-[11px] tracking-wide relative z-10">
         <span className="inline-flex items-center gap-1.5">
-          <span className="relative flex h-1 w-1">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-50" />
-            <span className="relative inline-flex rounded-full h-1 w-1 bg-primary" />
-          </span>
+          <Zap className="h-3 w-3 text-primary/60" />
           <span className="font-semibold text-primary/80 uppercase tracking-widest">$CLAW</span>
-          <span className="text-muted-foreground/60">is live</span>
+          <span className="text-muted-foreground/60">is live on Solana</span>
+          <span className="text-muted-foreground/20 mx-1">·</span>
+          <span className="text-[10px] text-muted-foreground/40 font-mono">65% fee share</span>
           <span className="text-muted-foreground/20 mx-1">·</span>
           <a
             href="#tokenomics"

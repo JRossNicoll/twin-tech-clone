@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
 import Navbar from "@/components/Navbar";
+import ScrollProgress from "@/components/ScrollProgress";
 import HeroSection from "@/components/HeroSection";
 import HotTicker from "@/components/HotTicker";
 import SkillsTerminal from "@/components/SkillsTerminal";
@@ -12,7 +13,12 @@ import HowItWorks from "@/components/HowItWorks";
 import AgentTypes from "@/components/AgentTypes";
 import EngineeringCase from "@/components/EngineeringCase";
 import EarningsCalculator from "@/components/EarningsCalculator";
+import Testimonials from "@/components/Testimonials";
 import Leaderboard from "@/components/Leaderboard";
+import Roadmap from "@/components/Roadmap";
+import Partners from "@/components/Partners";
+import FAQ from "@/components/FAQ";
+import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
 const sectionVariants = {
@@ -35,6 +41,7 @@ const Section = ({ id, children }: { id?: string; children: React.ReactNode }) =
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <ScrollProgress />
       <AnnouncementBanner />
       <Navbar />
       <main id="main-content">
@@ -67,8 +74,21 @@ const Index = () => {
         <Section id="tokenomics">
           <EarningsCalculator />
         </Section>
+        <Section>
+          <Testimonials />
+        </Section>
         <Section id="leaderboard">
           <Leaderboard />
+        </Section>
+        <Section id="roadmap">
+          <Roadmap />
+        </Section>
+        <Partners />
+        <Section id="faq">
+          <FAQ />
+        </Section>
+        <Section>
+          <CTASection />
         </Section>
       </main>
       <Footer />
