@@ -7,7 +7,7 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useSolPrice } from "@/hooks/useSolanaData";
 
 const navLinks = [
-  { label: "Create", href: "#create" },
+  { label: "Create", href: "#create-portal" },
   { label: "Leaderboard", href: "#leaderboard" },
   { label: "Docs", href: "/docs" },
   { label: "Tokenomics", href: "#tokenomics" },
