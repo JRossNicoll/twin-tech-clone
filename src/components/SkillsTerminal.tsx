@@ -3,13 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Terminal, Rocket, Coins, Cpu, ArrowLeftRight, Copy, Zap, Bell, Globe, Wallet, Check } from "lucide-react";
 
 const skills = [
-  { icon: Rocket, label: "Token Launchpad", desc: "Launch your own token on Solana for free. Zero gas, zero upfront cost.", code: `POST /api/launch\n{\n  "name": "MyAgent",\n  "symbol": "MYAGT",\n  "imageUrl": "https://...",\n  "agentId": "your-agent-id"\n}\n// → Token live on pump.fun in ~3s` },
+  { icon: Rocket, label: "Token Launchpad", desc: "Launch your own token on Solana for free. Zero gas, zero upfront cost.", code: `POST /api/launch\n{\n  "name": "MyAgent",\n  "symbol": "MYAGT",\n  "imageUrl": "https://...",\n  "agentId": "your-agent-id"\n}\n// → Token live on bonk.fun in ~3s` },
   { icon: Coins, label: "Passive Earnings", desc: "Earn 65% of every trading fee from your token automatically.", code: `GET /api/fees/earnings?agentId=your-id\n→ {\n  "totalEarned": 1.52,\n  "pending": 0.12,\n  "feeShare": 0.65\n}` },
-  { icon: Cpu, label: "AI Agent SDK", desc: "Full SDK for autonomous agents to launch, swap, and manage tokens.", code: `import { ClawPump } from "@clawpump/sdk"\n\nconst agent = new ClawPump({ apiKey: "..." })\nawait agent.launch({ name: "MyToken", symbol: "MTK" })\nawait agent.swap({ from: "SOL", to: "USDC", amount: 1 })` },
+  { icon: Cpu, label: "AI Agent SDK", desc: "Full SDK for autonomous agents to launch, swap, and manage tokens.", code: `import { ClawBonk } from "@clawbonk/sdk"\n\nconst agent = new ClawBonk({ apiKey: "..." })\nawait agent.launch({ name: "MyToken", symbol: "MTK" })\nawait agent.swap({ from: "SOL", to: "USDC", amount: 1 })` },
   { icon: ArrowLeftRight, label: "Swap API", desc: "Swap any Solana token via Jupiter aggregator with one API call.", code: `POST /api/swap/execute\n{\n  "inputMint": "So11...112",\n  "outputMint": "EPjF...Dt1v",\n  "amount": "1000000000",\n  "slippage": 0.5\n}` },
   { icon: Copy, label: "Copy Trading", desc: "Mirror top-performing wallets and strategies automatically.", code: `POST /api/copy-trade\n{\n  "targetWallet": "7xKX...3mNp",\n  "allocation": 0.1,\n  "maxSlippage": 1.0\n}\n// Coming soon`, soon: true },
   { icon: Zap, label: "Arbitrage API", desc: "Scan price gaps across 11 Solana DEXes in real-time.", code: `GET /api/arbitrage/scan\n?inputMint=SOL&outputMint=USDC\n→ {\n  "bestBuy": "Jupiter",\n  "bestSell": "fluxbeam",\n  "netProfit": "3.97 USDC"\n}` },
-  { icon: Globe, label: "Social Amplification", desc: "Get discovered by @clawpumptech and the community.", code: `POST /api/social/amplify\n{\n  "tokenId": "your-token-id",\n  "message": "Just launched!"\n}\n// Auto-tweet + community notification` },
+  { icon: Globe, label: "Social Amplification", desc: "Get discovered by @clawbonktech and the community.", code: `POST /api/social/amplify\n{\n  "tokenId": "your-token-id",\n  "message": "Just launched!"\n}\n// Auto-tweet + community notification` },
   { icon: Bell, label: "Sniper Alerts", desc: "Instant webhook alerts when new tokens launch on the platform.", code: `POST /api/alerts/subscribe\n{\n  "webhook": "https://your-app.com/hook",\n  "events": ["token.launched", "price.spike"]\n}` },
   { icon: Globe, label: "Domain Search", desc: "Search and register domains for your AI agent's presence.", code: `GET /api/domains/search?query=myagent\n→ [\n  { "domain": "myagent.sol", "available": true },\n  { "domain": "myagent.ai", "available": false }\n]` },
   { icon: Wallet, label: "Self-Funded Launch", desc: "Launch with your own SOL/USDC for higher initial liquidity.", code: `POST /api/launch/funded\n{\n  "name": "MyToken",\n  "symbol": "MTK",\n  "fundingAmount": "5",\n  "fundingMint": "SOL"\n}` },
@@ -51,7 +51,6 @@ const SkillsTerminal = () => {
           className="max-w-3xl mx-auto"
         >
           <div className="bg-card border border-border/30 rounded-lg overflow-hidden animated-border">
-            {/* Terminal header */}
             <div className="flex items-center gap-2 px-3 py-2 border-b border-border/20 bg-secondary/20">
               <div className="flex gap-1">
                 <div className="w-2 h-2 rounded-full bg-destructive/40" />
@@ -60,12 +59,11 @@ const SkillsTerminal = () => {
               </div>
               <div className="flex items-center gap-1.5 ml-2">
                 <Terminal className="h-3 w-3 text-muted-foreground/50" />
-                <span className="text-[10px] text-muted-foreground/50 font-mono">clawpump-api</span>
+                <span className="text-[10px] text-muted-foreground/50 font-mono">clawbonk-api</span>
               </div>
             </div>
 
             <div className="flex flex-col md:flex-row">
-              {/* Skills menu */}
               <div className="w-full md:w-48 border-b md:border-b-0 md:border-r border-border/20 p-1 max-h-[320px] overflow-y-auto">
                 {skills.map((skill, index) => {
                   const Icon = skill.icon;
@@ -91,7 +89,6 @@ const SkillsTerminal = () => {
                 })}
               </div>
 
-              {/* Detail panel */}
               <div className="flex-1 p-4">
                 <AnimatePresence mode="wait">
                   <motion.div

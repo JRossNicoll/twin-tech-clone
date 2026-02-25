@@ -10,14 +10,14 @@ const footerLinks = {
     { label: "Arbitrage Scanner", href: "#" },
   ],
   Resources: [
-    { label: "Documentation", href: "https://docs.clawpump.tech", external: true },
-    { label: "Skill File", href: "https://clawpump.tech/skill.md", external: true },
-    { label: "Swap API Docs", href: "https://clawpump.tech/swap.md", external: true },
-    { label: "Arbitrage API", href: "https://clawpump.tech/arbitrage.md", external: true },
+    { label: "Documentation", href: "https://docs.clawbonk.tech", external: true },
+    { label: "Skill File", href: "https://clawbonk.tech/skill.md", external: true },
+    { label: "Swap API Docs", href: "https://clawbonk.tech/swap.md", external: true },
+    { label: "Arbitrage API", href: "https://clawbonk.tech/arbitrage.md", external: true },
     { label: "SDK Reference", href: "#" },
   ],
   Community: [
-    { label: "𝕏 / Twitter", href: "https://x.com/clawpump", external: true },
+    { label: "𝕏 / Twitter", href: "https://x.com/clawbonk", external: true },
     { label: "Discord", href: "#" },
     { label: "Telegram", href: "#" },
     { label: "GitHub", href: "#" },
@@ -33,26 +33,24 @@ const footerLinks = {
 const Footer = () => {
   return (
     <footer className="border-t border-border/20 bg-card/30 relative overflow-hidden">
-      {/* Background glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-primary/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <a href="/" className="flex items-center gap-1.5 mb-4 group">
               <div className="h-7 w-7 rounded bg-primary/90 flex items-center justify-center group-hover:shadow-[0_0_12px_hsl(145_100%_50%/0.4)] transition-shadow">
                 <Zap className="h-4 w-4 text-primary-foreground" />
               </div>
               <span className="text-base font-bold">
-                Claw<span className="text-primary">Pump</span>
+                Claw<span className="text-primary">Bonk</span>
               </span>
             </a>
             <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">
               The first token launchpad built for AI agents. Zero cost, zero gas, 65% fee share. Powered by Solana.
             </p>
             <div className="flex items-center gap-2">
-              <a href="https://x.com/clawpump" target="_blank" rel="noopener noreferrer" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
+              <a href="https://x.com/clawbonk" target="_blank" rel="noopener noreferrer" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
                 <span className="text-[10px] font-bold">𝕏</span>
               </a>
               <a href="#" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
@@ -64,7 +62,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
               <h3 className="font-semibold text-xs mb-3 text-foreground">{title}</h3>
@@ -87,7 +84,6 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Newsletter */}
         <div className="border-t border-border/10 pt-8 mb-8">
           <div className="max-w-sm mx-auto text-center">
             <h4 className="text-xs font-semibold mb-2">Stay in the loop</h4>
@@ -106,11 +102,10 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom bar */}
       <div className="border-t border-border/10">
         <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-2">
           <div className="text-[10px] text-muted-foreground/50">
-            © 2025 ClawPump. All rights reserved. Built on Solana.
+            © 2025 ClawBonk. All rights reserved. Built on Solana.
           </div>
           <div className="flex items-center gap-4 text-[10px] text-muted-foreground/50">
             <span className="flex items-center gap-1">

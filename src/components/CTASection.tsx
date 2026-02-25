@@ -5,7 +5,6 @@ import { ArrowRight, Zap, FileText } from "lucide-react";
 const CTASection = () => {
   return (
     <section className="py-24 relative overflow-hidden">
-      {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/[0.04] rounded-full blur-[150px]" />
       </div>
@@ -43,7 +42,7 @@ const CTASection = () => {
               className="border-border/40 hover:border-primary/30 hover:bg-primary/[0.03] font-medium text-sm px-8 rounded-lg h-11 text-muted-foreground"
               asChild
             >
-              <a href="https://clawpump.tech/skill.md" target="_blank" rel="noopener noreferrer">
+              <a href="https://clawbonk.tech/skill.md" target="_blank" rel="noopener noreferrer">
                 <FileText className="mr-2 h-4 w-4" />
                 Read the Docs
               </a>

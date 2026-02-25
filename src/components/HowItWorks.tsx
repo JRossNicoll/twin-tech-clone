@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const launchSteps = [
   { num: 1, title: "Upload", code: `POST /api/upload\nContent-Type: multipart/form-data`, desc: "Get a hosted URL for your token image" },
-  { num: 2, title: "Launch", code: `POST /api/launch\n{ "name": "MyToken", "symbol": "MTK",\n  "imageUrl": "...", "agentId": "you" }`, desc: "Token goes live on pump.fun in seconds" },
+  { num: 2, title: "Launch", code: `POST /api/launch\n{ "name": "MyToken", "symbol": "MTK",\n  "imageUrl": "...", "agentId": "you" }`, desc: "Token goes live on bonk.fun in seconds" },
   { num: 3, title: "Earn", code: `GET /api/fees/earnings?agentId=you\n→ { "totalEarned": 1.52 }`, desc: "65% of every trading fee, automatically" },
 ];
 

@@ -1,17 +1,18 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Wallet } from "lucide-react";
+import { Menu, X, Wallet, LogOut } from "lucide-react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useSolPrice } from "@/hooks/useSolanaData";
 
 const navLinks = [
   { label: "Create", href: "#create" },
   { label: "Leaderboard", href: "#leaderboard" },
-  { label: "Roadmap", href: "#roadmap" },
   { label: "Docs", href: "/docs" },
   { label: "Tokenomics", href: "#tokenomics" },
   { label: "FAQ", href: "#faq" },
-  { label: "𝕏", href: "https://x.com/clawpump", external: true },
+  { label: "𝕏", href: "https://x.com/clawbonk", external: true },
 ];
 
 const Navbar = () => {
@@ -20,6 +21,13 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { data: solPriceData } = useSolPrice();
   const solPrice = solPriceData?.price;
+
+  const { publicKey, connected, disconnect } = useWallet();
+  const { setVisible } = useWalletModal();
+
+  const shortAddress = publicKey
+    ? `${publicKey.toBase58().slice(0, 4)}...${publicKey.toBase58().slice(-4)}`
+    : null;
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -50,6 +58,14 @@ const Navbar = () => {
     [navigate],
   );
 
+  const handleWalletClick = () => {
+    if (connected) {
+      disconnect();
+    } else {
+      setVisible(true);
+    }
+  };
+
   return (
     <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${
       scrolled 
@@ -65,7 +81,7 @@ const Navbar = () => {
             </svg>
           </div>
           <span className="text-sm font-bold tracking-tight">
-            Claw<span className="text-primary">Pump</span>
+            Claw<span className="text-primary">Bonk</span>
           </span>
         </a>
 
@@ -94,9 +110,22 @@ const Navbar = () => {
               SOL ${solPrice.toFixed(2)}
             </div>
           )}
-          <Button size="sm" className="h-7 px-4 text-[11px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded shadow-[0_0_12px_hsl(145_100%_50%/0.15)]">
-            <Wallet className="h-3 w-3 mr-1" />
-            Connect
+          <Button
+            size="sm"
+            onClick={handleWalletClick}
+            className="h-7 px-4 text-[11px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded shadow-[0_0_12px_hsl(145_100%_50%/0.15)]"
+          >
+            {connected ? (
+              <>
+                <LogOut className="h-3 w-3 mr-1" />
+                {shortAddress}
+              </>
+            ) : (
+              <>
+                <Wallet className="h-3 w-3 mr-1" />
+                Connect
+              </>
+            )}
           </Button>
         </div>
 
@@ -125,9 +154,22 @@ const Navbar = () => {
                 {link.label}
               </a>
             ))}
-            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold mt-1 w-full h-8 text-[11px] rounded">
-              <Wallet className="h-3 w-3 mr-1" />
-              Connect Wallet
+            <Button
+              size="sm"
+              onClick={handleWalletClick}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold mt-1 w-full h-8 text-[11px] rounded"
+            >
+              {connected ? (
+                <>
+                  <LogOut className="h-3 w-3 mr-1" />
+                  {shortAddress}
+                </>
+              ) : (
+                <>
+                  <Wallet className="h-3 w-3 mr-1" />
+                  Connect Wallet
+                </>
+              )}
             </Button>
           </div>
         </div>
