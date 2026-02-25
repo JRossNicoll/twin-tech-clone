@@ -106,7 +106,7 @@ const Leaderboard = () => {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.03 }}
-                      className="bg-card border border-border/30 rounded-lg p-4 hover:border-primary/20 transition-all duration-200 cursor-pointer text-center"
+                      className="bg-card border border-border/30 rounded-lg p-4 card-hover cursor-pointer text-center"
                     >
                       <div className="flex items-center justify-center mb-2">
                         <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center">
