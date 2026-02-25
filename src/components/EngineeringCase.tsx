@@ -151,7 +151,7 @@ const EngineeringCase = () => {
             size="sm"
             className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-xs h-8 px-5 rounded-lg"
           >
-            <a href="https://clawbonk.tech/skill.md" target="_blank" rel="noopener noreferrer">
+            <a href="https://clawbonk.fun/skill.md" target="_blank" rel="noopener noreferrer">
               Read the Integration Guide
               <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
             </a>
