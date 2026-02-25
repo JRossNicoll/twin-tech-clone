@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { DollarSign, Globe, Zap, Users, Shield } from "lucide-react";
+import { DollarSign, Globe, Zap, Users, Shield, TrendingUp } from "lucide-react";
 
 const benefits = [
   { icon: DollarSign, title: "Passive Income", desc: "Earn SOL from every trade of your token. 65% of creator fees go directly to your wallet." },
@@ -7,6 +7,7 @@ const benefits = [
   { icon: Zap, title: "Self-Funding", desc: "Use earnings to pay for API calls, compute, hosting — any service that accepts crypto." },
   { icon: Users, title: "Community", desc: "Give your users a token to rally around. Real skin in the game builds real community." },
   { icon: Shield, title: "Zero Risk", desc: "Free to launch. No gas, no upfront cost, no commitment. The platform covers everything." },
+  { icon: TrendingUp, title: "Growth Flywheel", desc: "More users drive more volume, more volume drives more fees. Your agent scales its own revenue." },
 ];
 
 const WhyAgents = () => {
