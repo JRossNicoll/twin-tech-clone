@@ -14,7 +14,216 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      agent_activity: {
+        Row: {
+          action: string
+          agent_id: string | null
+          created_at: string
+          detail: string | null
+          id: string
+        }
+        Insert: {
+          action: string
+          agent_id?: string | null
+          created_at?: string
+          detail?: string | null
+          id?: string
+        }
+        Update: {
+          action?: string
+          agent_id?: string | null
+          created_at?: string
+          detail?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_activity_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agents: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          joined_at: string | null
+          name: string
+          rank: number | null
+          skills: string[] | null
+          status: string | null
+          success_rate: number | null
+          tokens_launched: number | null
+          total_earnings: number | null
+          total_volume: number | null
+          updated_at: string
+          wallet_address: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          joined_at?: string | null
+          name: string
+          rank?: number | null
+          skills?: string[] | null
+          status?: string | null
+          success_rate?: number | null
+          tokens_launched?: number | null
+          total_earnings?: number | null
+          total_volume?: number | null
+          updated_at?: string
+          wallet_address?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          joined_at?: string | null
+          name?: string
+          rank?: number | null
+          skills?: string[] | null
+          status?: string | null
+          success_rate?: number | null
+          tokens_launched?: number | null
+          total_earnings?: number | null
+          total_volume?: number | null
+          updated_at?: string
+          wallet_address?: string | null
+        }
+        Relationships: []
+      }
+      platform_stats: {
+        Row: {
+          active_agents: number | null
+          id: string
+          tokens_launched: number | null
+          total_volume: number | null
+          updated_at: string
+        }
+        Insert: {
+          active_agents?: number | null
+          id?: string
+          tokens_launched?: number | null
+          total_volume?: number | null
+          updated_at?: string
+        }
+        Update: {
+          active_agents?: number | null
+          id?: string
+          tokens_launched?: number | null
+          total_volume?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      recent_trades: {
+        Row: {
+          amount: string
+          created_at: string
+          id: string
+          sol_amount: number
+          token_id: string | null
+          trade_type: string
+        }
+        Insert: {
+          amount: string
+          created_at?: string
+          id?: string
+          sol_amount: number
+          token_id?: string | null
+          trade_type: string
+        }
+        Update: {
+          amount?: string
+          created_at?: string
+          id?: string
+          sol_amount?: number
+          token_id?: string | null
+          trade_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recent_trades_token_id_fkey"
+            columns: ["token_id"]
+            isOneToOne: false
+            referencedRelation: "tokens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tokens: {
+        Row: {
+          change_24h: number | null
+          circulating_pct: number | null
+          created_at: string
+          creator_agent_id: string | null
+          description: string | null
+          holders: number | null
+          id: string
+          mcap: number | null
+          mint_address: string | null
+          name: string
+          price: number | null
+          ticker: string
+          total_supply: string | null
+          txns_24h: number | null
+          updated_at: string
+          verified: boolean | null
+          volume_24h: number | null
+        }
+        Insert: {
+          change_24h?: number | null
+          circulating_pct?: number | null
+          created_at?: string
+          creator_agent_id?: string | null
+          description?: string | null
+          holders?: number | null
+          id?: string
+          mcap?: number | null
+          mint_address?: string | null
+          name: string
+          price?: number | null
+          ticker: string
+          total_supply?: string | null
+          txns_24h?: number | null
+          updated_at?: string
+          verified?: boolean | null
+          volume_24h?: number | null
+        }
+        Update: {
+          change_24h?: number | null
+          circulating_pct?: number | null
+          created_at?: string
+          creator_agent_id?: string | null
+          description?: string | null
+          holders?: number | null
+          id?: string
+          mcap?: number | null
+          mint_address?: string | null
+          name?: string
+          price?: number | null
+          ticker?: string
+          total_supply?: string | null
+          txns_24h?: number | null
+          updated_at?: string
+          verified?: boolean | null
+          volume_24h?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tokens_creator_agent_id_fkey"
+            columns: ["creator_agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
