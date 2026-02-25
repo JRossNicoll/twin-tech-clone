@@ -36,13 +36,13 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl mx-auto text-center">
           {/* SOL price chip */}
-          {solPrice && (
+          {solPrice ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
               className="inline-flex items-center gap-1.5 bg-secondary/60 border border-border/40 rounded-full px-3 py-1 text-[10px] font-mono text-muted-foreground mb-8">
               <span className="h-1 w-1 rounded-full bg-primary" />
               SOL ${solPrice.toFixed(2)}
             </motion.div>
-          )}
+          ) : null}
 
           {/* Rotating headline */}
           <div className="h-[52px] md:h-[72px] flex items-center justify-center mb-4">
