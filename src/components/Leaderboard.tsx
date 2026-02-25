@@ -2,39 +2,21 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Trophy, LayoutGrid, Table } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAgents, useTokens } from "@/hooks/useClawData";
+
+const medals: Record<number, string> = { 1: "🥇", 2: "🥈", 3: "🥉" };
+
+const formatMcap = (v: number | null) => {
+  if (!v) return "$0";
+  if (v >= 1_000_000) return `$${(v / 1_000_000).toFixed(2)}M`;
+  if (v >= 1_000) return `$${(v / 1_000).toFixed(1)}K`;
+  return `$${v.toFixed(2)}`;
+};
 
 type SortBy = "earnings" | "tokens" | "solPerToken" | "name";
 type MinTokens = 0 | 3 | 5 | 10 | 20;
 type MinSol = 0 | 0.25 | 1 | 3 | 5;
 type ShowCount = 10 | 20 | 40 | 60;
-
-const mockAgents = [
-  { name: "Claude", tokens: 1, sol: 358.7005, rank: 1 },
-  { name: "Demon Script", tokens: 1, sol: 6.8083, rank: 2 },
-  { name: "Claudevicular", tokens: 1, sol: 2.1493, rank: 3 },
-  { name: "Claude Code Demo", tokens: 1, sol: 1.2137, rank: 4 },
-  { name: "Mobu3", tokens: 1, sol: 0.6132, rank: 5 },
-  { name: "andy8052", tokens: 1, sol: 44.3649, rank: 6 },
-  { name: "AuditClaw", tokens: 1, sol: 2.3775, rank: 7 },
-  { name: "Agent Mzan", tokens: 1, sol: 1.4560, rank: 8 },
-  { name: "Boxi", tokens: 1, sol: 0.8922, rank: 9 },
-  { name: "Love", tokens: 1, sol: 0.5954, rank: 10 },
-];
-
-const mockTokens = [
-  { name: "ClawPump", ticker: "CLAW", mcap: "$3.80M", price: "$0.0038", volume: "$1.74M", age: "6m ago", verified: true },
-  { name: "ClaudeThinks", ticker: "THINK", mcap: "$124.2K", price: "$0.0001", volume: "$138.8K", age: "21d ago" },
-  { name: "ConejoAgent", ticker: "CONEJO", mcap: "$25.8K", price: "$0.0000", volume: "$71.5K", age: "6d ago" },
-  { name: "First", ticker: "FIRST", mcap: "$11.9K", price: "$0.0000", volume: "$68.1K", age: "48m ago" },
-  { name: "Claude Made Me a Millionaire", ticker: "NOMISTAKE", mcap: "$36.4K", price: "$0.0000", volume: "$60.6K", age: "7d ago" },
-  { name: "Test Pump", ticker: "TEST", mcap: "$17.9K", price: "$0.0000", volume: "$40.9K", age: "22d ago" },
-  { name: "Monster", ticker: "MNSTR", mcap: "$15.1K", price: "$0.0000", volume: "$39.5K", age: "22d ago" },
-  { name: "Ape Strong", ticker: "APSTR", mcap: "$4.7K", price: "$0.0000", volume: "$37.7K", age: "21d ago" },
-  { name: "Golden Claw", ticker: "GOLDENCLAW", mcap: "$4.3K", price: "$0.0000", volume: "$29.2K", age: "5h ago" },
-  { name: "My Agent Token", ticker: "MAT", mcap: "$13.5K", price: "$0.0000", volume: "$27.3K", age: "22d ago" },
-];
-
-const medals: Record<number, string> = { 1: "🥇", 2: "🥈", 3: "🥉" };
 
 const FilterButton = ({
   active,
@@ -56,6 +38,9 @@ const FilterButton = ({
 );
 
 const Leaderboard = () => {
+  const { data: agents = [], isLoading: agentsLoading } = useAgents();
+  const { data: tokens = [], isLoading: tokensLoading } = useTokens();
+
   const [tab, setTab] = useState<"agents" | "tokens">("agents");
   const [view, setView] = useState<"animated" | "table">("animated");
   const [sortBy, setSortBy] = useState<SortBy>("earnings");
@@ -64,17 +49,21 @@ const Leaderboard = () => {
   const [showCount, setShowCount] = useState<ShowCount>(10);
   const [tokenFilter, setTokenFilter] = useState<"new" | "hot" | "mcap" | "volume">("hot");
 
-  const filteredAgents = mockAgents
-    .filter((a) => a.tokens >= minTokens && a.sol >= minSol)
+  const filteredAgents = agents
+    .filter((a) => (a.tokens_launched ?? 0) >= minTokens && (a.total_earnings ?? 0) >= minSol)
     .sort((a, b) => {
-      if (sortBy === "earnings") return b.sol - a.sol;
-      if (sortBy === "tokens") return b.tokens - a.tokens;
-      if (sortBy === "solPerToken") return b.sol / b.tokens - a.sol / a.tokens;
+      if (sortBy === "earnings") return (b.total_earnings ?? 0) - (a.total_earnings ?? 0);
+      if (sortBy === "tokens") return (b.tokens_launched ?? 0) - (a.tokens_launched ?? 0);
+      if (sortBy === "solPerToken") {
+        const aAvg = (a.tokens_launched ?? 0) > 0 ? (a.total_earnings ?? 0) / a.tokens_launched! : 0;
+        const bAvg = (b.tokens_launched ?? 0) > 0 ? (b.total_earnings ?? 0) / b.tokens_launched! : 0;
+        return bAvg - aAvg;
+      }
       return a.name.localeCompare(b.name);
     })
     .slice(0, showCount);
 
-  const totalSol = filteredAgents.reduce((s, a) => s + a.sol, 0);
+  const totalSol = filteredAgents.reduce((s, a) => s + (a.total_earnings ?? 0), 0);
   const avgSol = filteredAgents.length > 0 ? totalSol / filteredAgents.length : 0;
 
   return (
@@ -160,7 +149,7 @@ const Leaderboard = () => {
               <div className="bg-card border border-border/50 rounded-xl p-4 text-center">
                 <div className="text-xs text-muted-foreground mb-1">Leader</div>
                 <div className="font-bold text-primary">{filteredAgents[0]?.name || "—"}</div>
-                <div className="text-sm font-mono text-foreground">{filteredAgents[0]?.sol.toFixed(4) || 0} SOL</div>
+                <div className="text-sm font-mono text-foreground">{(filteredAgents[0]?.total_earnings ?? 0).toFixed(4)} SOL</div>
               </div>
               <div className="bg-card border border-border/50 rounded-xl p-4 text-center">
                 <div className="text-xs text-muted-foreground mb-1">Avg Earnings</div>
@@ -169,37 +158,37 @@ const Leaderboard = () => {
               </div>
               <div className="bg-card border border-border/50 rounded-xl p-4 text-center">
                 <div className="text-xs text-muted-foreground mb-1">Coverage</div>
-                <div className="font-bold text-foreground">{mockTokens.length * 6} tokens tracked</div>
+                <div className="font-bold text-foreground">{tokens.length} tokens tracked</div>
                 <div className="text-xs text-muted-foreground">{filteredAgents.length} agents | {totalSol.toFixed(3)} SOL total</div>
               </div>
             </div>
 
-            {/* Agent cards */}
-            <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {filteredAgents.map((agent, i) => (
-                <Link
-                  to={`/agent/${agent.name.toLowerCase()}`}
-                  key={agent.name}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    className="bg-card border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:box-glow transition-all duration-300 cursor-pointer text-center"
-                  >
-                    <div className="flex items-center justify-center mb-2">
-                      <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg">
-                        {medals[i + 1] || `#${i + 1}`}
+            {agentsLoading ? (
+              <div className="text-center py-12 text-muted-foreground animate-pulse">Loading agents...</div>
+            ) : (
+              <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                {filteredAgents.map((agent, i) => (
+                  <Link to={`/agent/${agent.name.toLowerCase()}`} key={agent.name}>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.05 }}
+                      className="bg-card border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:box-glow transition-all duration-300 cursor-pointer text-center"
+                    >
+                      <div className="flex items-center justify-center mb-2">
+                        <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg">
+                          {medals[i + 1] || `#${i + 1}`}
+                        </div>
                       </div>
-                    </div>
-                    <div className="font-semibold text-sm truncate">{agent.name}</div>
-                    <div className="text-xs text-muted-foreground">{agent.tokens} tokens</div>
-                    <div className="text-sm font-mono text-primary mt-1">{agent.sol.toFixed(4)} SOL</div>
-                  </motion.div>
-                </Link>
-              ))}
-            </div>
+                      <div className="font-semibold text-sm truncate">{agent.name}</div>
+                      <div className="text-xs text-muted-foreground">{agent.tokens_launched ?? 0} tokens</div>
+                      <div className="text-sm font-mono text-primary mt-1">{(agent.total_earnings ?? 0).toFixed(4)} SOL</div>
+                    </motion.div>
+                  </Link>
+                ))}
+              </div>
+            )}
 
             <div className="text-center mt-8">
               <a href="/leaderboard" className="text-sm text-primary hover:underline font-medium">
@@ -218,44 +207,49 @@ const Leaderboard = () => {
               ))}
             </div>
 
-            {/* Tokens table */}
-            <div className="max-w-5xl mx-auto overflow-x-auto">
-              <div className="bg-card border border-border/50 rounded-xl overflow-hidden">
-                <div className="grid grid-cols-5 gap-4 px-5 py-3 border-b border-border/50 text-xs text-muted-foreground font-medium">
-                  <span>Token</span>
-                  <span className="text-right">MCap</span>
-                  <span className="text-right">Price</span>
-                  <span className="text-right">Volume</span>
-                  <span className="text-right">Age</span>
-                </div>
-                {mockTokens.map((token) => (
-                  <Link
-                    to={`/token/${token.ticker.toLowerCase()}`}
-                    key={token.ticker}
-                    className="grid grid-cols-5 gap-4 px-5 py-3 border-b border-border/20 hover:bg-secondary/20 transition-colors cursor-pointer items-center"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary flex-shrink-0">
-                        {token.ticker.charAt(0)}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-sm font-medium truncate flex items-center gap-1.5">
-                          {token.name}
-                          {token.verified && (
-                            <span className="text-[10px] bg-primary/20 text-primary px-1.5 py-0 rounded-full">Verified</span>
-                          )}
+            {tokensLoading ? (
+              <div className="text-center py-12 text-muted-foreground animate-pulse">Loading tokens...</div>
+            ) : (
+              <div className="max-w-5xl mx-auto overflow-x-auto">
+                <div className="bg-card border border-border/50 rounded-xl overflow-hidden">
+                  <div className="grid grid-cols-5 gap-4 px-5 py-3 border-b border-border/50 text-xs text-muted-foreground font-medium">
+                    <span>Token</span>
+                    <span className="text-right">MCap</span>
+                    <span className="text-right">Price</span>
+                    <span className="text-right">Volume</span>
+                    <span className="text-right">Change</span>
+                  </div>
+                  {tokens.map((token: any) => (
+                    <Link
+                      to={`/token/${token.ticker.toLowerCase()}`}
+                      key={token.ticker}
+                      className="grid grid-cols-5 gap-4 px-5 py-3 border-b border-border/20 hover:bg-secondary/20 transition-colors cursor-pointer items-center"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary flex-shrink-0">
+                          {token.ticker.charAt(0)}
                         </div>
-                        <div className="text-xs text-muted-foreground">{token.ticker}</div>
+                        <div className="min-w-0">
+                          <div className="text-sm font-medium truncate flex items-center gap-1.5">
+                            {token.name}
+                            {token.verified && (
+                              <span className="text-[10px] bg-primary/20 text-primary px-1.5 py-0 rounded-full">Verified</span>
+                            )}
+                          </div>
+                          <div className="text-xs text-muted-foreground">{token.ticker}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="text-right text-sm font-mono">{token.mcap}</div>
-                    <div className="text-right text-sm font-mono">{token.price}</div>
-                    <div className="text-right text-sm font-mono">{token.volume}</div>
-                    <div className="text-right text-xs text-muted-foreground">{token.age}</div>
-                  </Link>
-                ))}
+                      <div className="text-right text-sm font-mono">{formatMcap(token.mcap)}</div>
+                      <div className="text-right text-sm font-mono">{token.price ? `$${Number(token.price).toFixed(4)}` : "$0"}</div>
+                      <div className="text-right text-sm font-mono">{formatMcap(token.volume_24h)}</div>
+                      <div className={`text-right text-sm font-mono ${(token.change_24h ?? 0) >= 0 ? "text-primary" : "text-destructive"}`}>
+                        {(token.change_24h ?? 0) >= 0 ? "+" : ""}{token.change_24h ?? 0}%
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </>
         )}
       </div>

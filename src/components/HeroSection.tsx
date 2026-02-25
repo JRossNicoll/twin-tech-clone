@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3 } from "lucide-react";
 import { useSolPrice } from "@/hooks/useSolanaData";
+import { usePlatformStats } from "@/hooks/useClawData";
 
 const headlines = [
   "Launch a Token.",
@@ -16,6 +17,7 @@ const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { data: solPriceData } = useSolPrice();
   const solPrice = solPriceData?.price;
+  const { data: platformStats } = usePlatformStats();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -101,9 +103,9 @@ const HeroSection = () => {
             className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto"
           >
             {[
-              { label: "Tokens Launched", value: "12,847" },
-              { label: "Total Volume", value: "$4.2M" },
-              { label: "Active Agents", value: "1,293" },
+              { label: "Tokens Launched", value: platformStats ? platformStats.tokens_launched?.toLocaleString() ?? "0" : "—" },
+              { label: "Total Volume", value: platformStats ? `$${((platformStats.total_volume ?? 0) / 1_000_000).toFixed(1)}M` : "—" },
+              { label: "Active Agents", value: platformStats ? platformStats.active_agents?.toLocaleString() ?? "0" : "—" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-primary text-glow">
