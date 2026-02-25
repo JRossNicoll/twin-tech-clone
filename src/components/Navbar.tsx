@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Wallet, LogOut } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useSolPrice } from "@/hooks/useSolanaData";
@@ -75,11 +76,7 @@ const Navbar = () => {
       <div className="container mx-auto flex h-12 items-center justify-between px-4">
         {/* Logo */}
         <a href="/" className="flex items-center gap-1.5 group">
-          <div className="h-6 w-6 rounded bg-primary/90 flex items-center justify-center group-hover:shadow-[0_0_12px_hsl(145_100%_50%/0.4)] transition-shadow">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-          </div>
+          <img src={logoImg} alt="ClawBonk logo" className="h-8 w-8 rounded-full" />
           <span className="text-sm font-bold tracking-tight">
             Claw<span className="text-primary">Bonk</span>
           </span>
@@ -113,7 +110,7 @@ const Navbar = () => {
           <Button
             size="sm"
             onClick={handleWalletClick}
-            className="h-7 px-4 text-[11px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded shadow-[0_0_12px_hsl(145_100%_50%/0.15)]"
+            className="h-7 px-4 text-[11px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded shadow-[0_0_12px_hsl(25_95%_53%/0.15)]"
           >
             {connected ? (
               <>

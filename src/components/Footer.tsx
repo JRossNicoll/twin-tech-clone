@@ -1,5 +1,6 @@
-import { Zap, ExternalLink, Github, Send } from "lucide-react";
+import { ExternalLink, Github, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoImg from "@/assets/logo.png";
 
 const footerLinks = {
   Platform: [
@@ -39,9 +40,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           <div className="col-span-2 md:col-span-1">
             <a href="/" className="flex items-center gap-1.5 mb-4 group">
-              <div className="h-7 w-7 rounded bg-primary/90 flex items-center justify-center group-hover:shadow-[0_0_12px_hsl(145_100%_50%/0.4)] transition-shadow">
-                <Zap className="h-4 w-4 text-primary-foreground" />
-              </div>
+              <img src={logoImg} alt="ClawBonk logo" className="h-8 w-8 rounded-full" />
               <span className="text-base font-bold">
                 Claw<span className="text-primary">Bonk</span>
               </span>
