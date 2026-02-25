@@ -14,7 +14,6 @@ const partners = [
   { name: "Raydium", role: "AMM/DEX", logo: raydiumLogo },
   { name: "Orca", role: "DEX", logo: orcaLogo },
   { name: "Meteora", role: "Liquidity", logo: meteoraLogo },
-  { name: "Phoenix", role: "Order Book", logo: null },
 ];
 
 const Partners = () => {
