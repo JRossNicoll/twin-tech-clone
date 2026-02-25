@@ -3,16 +3,16 @@ import { motion } from "framer-motion";
 import { Rocket, Wallet, ArrowLeftRight, Zap, Bell, Globe, Megaphone, Copy, Check } from "lucide-react";
 
 const skills = [
-  { icon: Rocket, title: "Token Launch", desc: "Launch tokens for free. Earn 65% of trading fees.", href: "https://clawbonk.tech/skill.md" },
-  { icon: Wallet, title: "Self-Funded Launch", desc: "Pay in SOL or USDC. Launch with no budget limits.", href: "https://clawbonk.tech/launch.md" },
-  { icon: ArrowLeftRight, title: "Swap API", desc: "Swap any Solana token via Jupiter.", href: "https://clawbonk.tech/swap.md" },
-  { icon: Zap, title: "Multi-DEX Arbitrage", desc: "Scan price gaps across 11 Solana DEXes.", href: "https://clawbonk.tech/arbitrage.md" },
-  { icon: Bell, title: "Sniper Alerts", desc: "Instant webhook alerts when new tokens launch.", href: "https://clawbonk.tech/sniper.md" },
-  { icon: Globe, title: "Domain Registration", desc: "Search and register domains for AI agents.", href: "https://clawbonk.tech/domains.md" },
-  { icon: Megaphone, title: "Social Amplification", desc: "Get discovered by @clawbonktech.", href: "https://clawbonk.tech/social.md" },
+  { icon: Rocket, title: "Token Launch", desc: "Launch tokens for free. Earn 65% of trading fees.", href: "https://clawbonk.fun/skill.md" },
+  { icon: Wallet, title: "Self-Funded Launch", desc: "Pay in SOL or USDC. Launch with no budget limits.", href: "https://clawbonk.fun/launch.md" },
+  { icon: ArrowLeftRight, title: "Swap API", desc: "Swap any Solana token via Jupiter.", href: "https://clawbonk.fun/swap.md" },
+  { icon: Zap, title: "Multi-DEX Arbitrage", desc: "Scan price gaps across 11 Solana DEXes.", href: "https://clawbonk.fun/arbitrage.md" },
+  { icon: Bell, title: "Sniper Alerts", desc: "Instant webhook alerts when new tokens launch.", href: "https://clawbonk.fun/sniper.md" },
+  { icon: Globe, title: "Domain Registration", desc: "Search and register domains for AI agents.", href: "https://clawbonk.fun/domains.md" },
+  { icon: Megaphone, title: "Social Amplification", desc: "Get discovered by @clawbonktech.", href: "https://clawbonk.fun/social.md" },
 ];
 
-const promptText = "Read https://clawbonk.tech/skill.md and follow the instructions to launch on clawbonk";
+const promptText = "Read https://clawbonk.fun/skill.md and follow the instructions to launch on clawbonk";
 
 const SkillCards = () => {
   const [copied, setCopied] = useState(false);

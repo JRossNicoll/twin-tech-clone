@@ -11,10 +11,10 @@ const footerLinks = {
     { label: "Arbitrage Scanner", href: "#" },
   ],
   Resources: [
-    { label: "Documentation", href: "https://docs.clawbonk.tech", external: true },
-    { label: "Skill File", href: "https://clawbonk.tech/skill.md", external: true },
-    { label: "Swap API Docs", href: "https://clawbonk.tech/swap.md", external: true },
-    { label: "Arbitrage API", href: "https://clawbonk.tech/arbitrage.md", external: true },
+    { label: "Documentation", href: "https://docs.clawbonk.fun", external: true },
+    { label: "Skill File", href: "https://clawbonk.fun/skill.md", external: true },
+    { label: "Swap API Docs", href: "https://clawbonk.fun/swap.md", external: true },
+    { label: "Arbitrage API", href: "https://clawbonk.fun/arbitrage.md", external: true },
     { label: "SDK Reference", href: "#" },
   ],
   Community: [

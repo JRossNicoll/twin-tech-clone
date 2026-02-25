@@ -105,7 +105,7 @@ const IntegrationGuide = () => {
             </div>
           </div>
           <div className="flex items-center gap-3 mt-4">
-            <Badge className="bg-primary/15 text-primary border-primary/20 text-[10px]">Base URL: https://clawbonk.tech</Badge>
+            <Badge className="bg-primary/15 text-primary border-primary/20 text-[10px]">Base URL: https://clawbonk.fun</Badge>
             <Badge variant="outline" className="text-[10px]">REST API</Badge>
             <Badge variant="outline" className="text-[10px]">No Auth Required</Badge>
           </div>
@@ -196,7 +196,7 @@ const IntegrationGuide = () => {
                     <div className="absolute left-[14px] top-0 h-7 w-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold z-10">1</div>
                     <h3 className="text-sm font-semibold mb-2">Upload Your Token Image</h3>
                     <p className="text-[11px] text-muted-foreground mb-3">Upload a PNG, JPEG, GIF, or WebP (max 5MB). Returns a hosted URL.</p>
-                    <CodeBlock code={`POST https://clawbonk.tech/api/upload
+                    <CodeBlock code={`POST https://clawbonk.fun/api/upload
 Content-Type: multipart/form-data
 
 Body: image=<your-image-file>
@@ -204,7 +204,7 @@ Body: image=<your-image-file>
 // Response:
 {
   "success": true,
-  "imageUrl": "https://clawbonk.tech/uploads/abc123.png"
+  "imageUrl": "https://clawbonk.fun/uploads/abc123.png"
 }`} />
                   </div>
 
@@ -215,14 +215,14 @@ Body: image=<your-image-file>
                     <p className="text-[11px] text-muted-foreground mb-3">
                       Send your token details. It goes live on bonk.fun in ~3 seconds. <code className="text-primary">walletAddress</code> receives fee distributions.
                     </p>
-                    <CodeBlock code={`POST https://clawbonk.tech/api/launch
+                    <CodeBlock code={`POST https://clawbonk.fun/api/launch
 Content-Type: application/json
 
 {
   "name": "My Agent Token",
   "symbol": "MAT",
   "description": "A token launched by my AI agent",
-  "imageUrl": "https://clawbonk.tech/uploads/abc123.png",
+  "imageUrl": "https://clawbonk.fun/uploads/abc123.png",
   "agentId": "my-agent-123",
   "agentName": "My Agent",
   "walletAddress": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU"
@@ -243,7 +243,7 @@ Content-Type: application/json
                     <div className="absolute left-[14px] top-0 h-7 w-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold z-10">3</div>
                     <h3 className="text-sm font-semibold mb-2">Check Your Earnings</h3>
                     <p className="text-[11px] text-muted-foreground mb-3">Fees are collected hourly and distributed automatically. Check anytime.</p>
-                    <CodeBlock code={`GET https://clawbonk.tech/api/fees/earnings?agentId=my-agent-123
+                    <CodeBlock code={`GET https://clawbonk.fun/api/fees/earnings?agentId=my-agent-123
 
 // Response:
 {
@@ -532,7 +532,7 @@ const txHash = await connection.sendTransaction(tx, {
                     <code className="text-[11px] font-mono text-foreground">/api/agents/arbitrage</code>
                   </div>
                   <div className="p-5">
-                    <CodeBlock code={`POST https://clawbonk.tech/api/agents/arbitrage
+                    <CodeBlock code={`POST https://clawbonk.fun/api/agents/arbitrage
 {
   "userPublicKey": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
   "pairs": [{
@@ -589,7 +589,7 @@ const txHash = await connection.sendTransaction(tx, {
               </h2>
               <div className="bg-card border border-border/30 rounded-lg p-5 animated-border">
                 <p className="text-[11px] text-muted-foreground mb-4">Subscribe to webhook alerts for new token launches and price events.</p>
-                <CodeBlock code={`POST https://clawbonk.tech/api/alerts/subscribe
+                <CodeBlock code={`POST https://clawbonk.fun/api/alerts/subscribe
 {
   "webhook": "https://your-app.com/hook",
   "events": ["token.launched", "price.spike", "volume.surge"]
@@ -615,7 +615,7 @@ const txHash = await connection.sendTransaction(tx, {
               </h2>
               <div className="bg-card border border-border/30 rounded-lg p-5 animated-border">
                 <p className="text-[11px] text-muted-foreground mb-4">Search and register domains for your AI agent's web presence.</p>
-                <CodeBlock code={`GET https://clawbonk.tech/api/domains/search?query=myagent
+                <CodeBlock code={`GET https://clawbonk.fun/api/domains/search?query=myagent
 
 // Response:
 [
@@ -805,7 +805,7 @@ console.log("Wallet created:", publicKey);`} language="js" />
                   <Rocket className="h-4 w-4 mr-1.5" /> Launch Your Token
                 </Button>
                 <Button variant="outline" className="border-border/40 hover:border-primary/30" asChild>
-                  <a href="https://clawbonk.tech/skill.md" target="_blank" rel="noopener noreferrer">
+                  <a href="https://clawbonk.fun/skill.md" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4 mr-1.5" /> View on ClawBonk
                   </a>
                 </Button>
