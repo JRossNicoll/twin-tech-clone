@@ -28,7 +28,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden py-24 md:py-36">
+    <section className="relative overflow-hidden py-16 md:py-24">
       {/* Particle background */}
       <ParticleField />
 
@@ -68,7 +68,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="inline-flex items-center gap-1.5 bg-primary/10 border border-primary/20 rounded-full px-3 py-1 text-[10px] font-medium text-primary mb-5"
+            className="inline-flex items-center gap-1.5 bg-primary/10 border border-primary/30 rounded-md px-4 py-1.5 text-[11px] font-semibold text-primary mb-5 tracking-wide"
           >
             <Sparkles className="h-3 w-3" />
             The AI Agent Token Launchpad
