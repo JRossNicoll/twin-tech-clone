@@ -14,7 +14,7 @@ import AgentTypes from "@/components/AgentTypes";
 import EngineeringCase from "@/components/EngineeringCase";
 import Partners from "@/components/Partners";
 import FAQ from "@/components/FAQ";
-import CTASection from "@/components/CTASection";
+import CreatePortal from "@/components/CreatePortal";
 import Footer from "@/components/Footer";
 
 const sectionVariants = {
@@ -71,8 +71,8 @@ const Index = () => {
         <Section id="faq">
           <FAQ />
         </Section>
-        <Section>
-          <CTASection />
+        <Section id="create-portal">
+          <CreatePortal />
         </Section>
       </main>
       <Footer />
