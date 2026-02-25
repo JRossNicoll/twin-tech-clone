@@ -106,7 +106,7 @@ const Leaderboard = () => {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.03 }}
-                      className="bg-card border border-border/30 rounded-lg p-4 card-hover cursor-pointer text-center"
+                      className="bg-card border border-border/30 rounded-lg p-4 card-hover cursor-pointer text-center animated-border"
                     >
                       <div className="flex items-center justify-center mb-2">
                         <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center">
@@ -133,7 +133,7 @@ const Leaderboard = () => {
               <div className="text-center py-12 text-muted-foreground text-sm animate-pulse">Loading tokens...</div>
             ) : (
               <div className="max-w-4xl mx-auto overflow-x-auto">
-                <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+                <div className="bg-card border border-border/30 rounded-lg overflow-hidden animated-border">
                   <div className="grid grid-cols-5 gap-4 px-4 py-2.5 border-b border-border/30 text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
                     <span>Token</span>
                     <span className="text-right">MCap</span>

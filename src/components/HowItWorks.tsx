@@ -58,7 +58,7 @@ const HowItWorks = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
-              className="bg-card border border-border/30 rounded-lg p-5 relative card-hover"
+              className="bg-card border border-border/30 rounded-lg p-5 relative card-hover animated-border"
             >
               <div className="absolute -top-2.5 -left-2.5 h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold">
                 {step.num}

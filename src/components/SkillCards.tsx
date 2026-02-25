@@ -53,7 +53,7 @@ const SkillCards = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.04 }}
-                className="group bg-card border border-border/30 rounded-lg p-4 card-hover"
+                className="group bg-card border border-border/30 rounded-lg p-4 card-hover animated-border"
               >
                 <div className="flex items-start gap-3">
                   <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -83,7 +83,7 @@ const SkillCards = () => {
           </p>
           <div
             onClick={handleCopy}
-            className="bg-card border border-border/30 rounded-lg p-3 flex items-center justify-between gap-3 cursor-pointer hover:border-primary/20 transition-all duration-200 group"
+            className="bg-card border border-border/30 rounded-lg p-3 flex items-center justify-between gap-3 cursor-pointer hover:border-primary/20 transition-all duration-200 group animated-border"
           >
             <code className="text-[10px] text-muted-foreground font-mono leading-relaxed flex-1">
               {promptText}

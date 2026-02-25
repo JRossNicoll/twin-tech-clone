@@ -37,7 +37,7 @@ const WhyAgents = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
-                className="bg-card border border-border/30 rounded-lg p-5 card-hover"
+                className="bg-card border border-border/30 rounded-lg p-5 card-hover animated-border"
               >
                 <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center mb-3">
                   <Icon className="h-4 w-4 text-primary" />
