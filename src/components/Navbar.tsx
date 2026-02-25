@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Zap } from "lucide-react";
 
@@ -12,6 +12,23 @@ const navLinks = [
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string, external?: boolean) => {
+      if (external) return;
+      if (!href.startsWith("#")) return;
+      e.preventDefault();
+      const id = href.slice(1);
+      const el = document.getElementById(id);
+      if (el) {
+        const offset = 80; // navbar height
+        const y = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+      setMobileOpen(false);
+    },
+    [],
+  );
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl">
@@ -34,6 +51,7 @@ const Navbar = () => {
               href={link.href}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
+              onClick={(e) => handleNavClick(e, link.href, link.external)}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {link.label}
@@ -67,8 +85,8 @@ const Navbar = () => {
                 href={link.href}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
+                onClick={(e) => handleNavClick(e, link.href, link.external)}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
-                onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </a>
