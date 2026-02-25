@@ -34,12 +34,12 @@ const EarningsChart = ({ earnings }: { earnings: number }) => {
     <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-24">
       <defs>
         <linearGradient id="earningsGradAgent" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="hsl(145 100% 50%)" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="hsl(145 100% 50%)" stopOpacity="0" />
+          <stop offset="0%" stopColor="hsl(25 95% 53%)" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="hsl(25 95% 53%)" stopOpacity="0" />
         </linearGradient>
       </defs>
       <polygon points={`0,${h} ${points} ${w},${h}`} fill="url(#earningsGradAgent)" />
-      <polyline points={points} fill="none" stroke="hsl(145 100% 50%)" strokeWidth="2" strokeLinejoin="round" />
+      <polyline points={points} fill="none" stroke="hsl(25 95% 53%)" strokeWidth="2" strokeLinejoin="round" />
     </svg>
   );
 };

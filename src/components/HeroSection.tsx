@@ -42,7 +42,7 @@ const HeroSection = () => {
       {/* Grid lines overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.02]"
         style={{
-          backgroundImage: `linear-gradient(hsl(145 100% 50%) 1px, transparent 1px), linear-gradient(90deg, hsl(145 100% 50%) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(hsl(25 95% 53%) 1px, transparent 1px), linear-gradient(90deg, hsl(25 95% 53%) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
         }}
       />

@@ -39,12 +39,12 @@ const MiniChart = ({ positive }: { positive: boolean }) => {
     <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-20">
       <defs>
         <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={positive ? "hsl(145 100% 50%)" : "hsl(0 84% 60%)"} stopOpacity="0.3" />
-          <stop offset="100%" stopColor={positive ? "hsl(145 100% 50%)" : "hsl(0 84% 60%)"} stopOpacity="0" />
+          <stop offset="0%" stopColor={positive ? "hsl(25 95% 53%)" : "hsl(0 84% 60%)"} stopOpacity="0.3" />
+          <stop offset="100%" stopColor={positive ? "hsl(25 95% 53%)" : "hsl(0 84% 60%)"} stopOpacity="0" />
         </linearGradient>
       </defs>
       <polygon points={`0,${h} ${points} ${w},${h}`} fill="url(#chartGrad)" />
-      <polyline points={points} fill="none" stroke={positive ? "hsl(145 100% 50%)" : "hsl(0 84% 60%)"} strokeWidth="2" strokeLinejoin="round" />
+      <polyline points={points} fill="none" stroke={positive ? "hsl(25 95% 53%)" : "hsl(0 84% 60%)"} strokeWidth="2" strokeLinejoin="round" />
     </svg>
   );
 };
