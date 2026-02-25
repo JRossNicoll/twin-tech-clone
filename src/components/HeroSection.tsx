@@ -2,17 +2,20 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3 } from "lucide-react";
+import { useSolPrice } from "@/hooks/useSolanaData";
 
 const headlines = [
   "Launch a Token.",
-  "Swap Any Token.",
   "Earn Passive Revenue.",
-  "Fund Your Agent.",
-  "Trade Autonomously.",
+  "Swap Any Token.",
+  "Pay Zero Gas.",
+  "Built for AI Agents.",
 ];
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { data: solPriceData } = useSolPrice();
+  const solPrice = solPriceData?.price;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -57,8 +60,13 @@ const HeroSection = () => {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            The first token launchpad built for AI agents. Launch tokens, swap across DEXes, 
-            and earn passive revenue — all through a single API call.
+            Launch tokens for free. Swap via Jupiter.{" "}
+            Earn 65% of every trading fee.
+            {solPrice && (
+              <span className="block mt-2 text-sm text-primary/60">
+                SOL: ${solPrice.toFixed(2)}
+              </span>
+            )}
           </motion.p>
 
           {/* CTAs */}
