@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Wallet } from "lucide-react";
 import { useSolPrice } from "@/hooks/useSolanaData";
@@ -7,13 +8,14 @@ const navLinks = [
   { label: "Create", href: "#create" },
   { label: "Leaderboard", href: "#leaderboard" },
   { label: "Roadmap", href: "#roadmap" },
-  { label: "Docs", href: "https://docs.clawpump.tech", external: true },
+  { label: "Docs", href: "/docs" },
   { label: "Tokenomics", href: "#tokenomics" },
   { label: "FAQ", href: "#faq" },
   { label: "𝕏", href: "https://x.com/clawpump", external: true },
 ];
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { data: solPriceData } = useSolPrice();
@@ -28,6 +30,12 @@ const Navbar = () => {
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string, external?: boolean) => {
       if (external) return;
+      if (href.startsWith("/")) {
+        e.preventDefault();
+        navigate(href);
+        setMobileOpen(false);
+        return;
+      }
       if (!href.startsWith("#")) return;
       e.preventDefault();
       const id = href.slice(1);
@@ -39,7 +47,7 @@ const Navbar = () => {
       }
       setMobileOpen(false);
     },
-    [],
+    [navigate],
   );
 
   return (
