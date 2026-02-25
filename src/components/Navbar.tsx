@@ -74,7 +74,7 @@ const Navbar = () => {
         borderImage: `linear-gradient(90deg, transparent 0%, hsl(25 95% 53% / ${scrolled ? 0.2 : 0.1}) 30%, hsl(25 95% 53% / ${scrolled ? 0.25 : 0.12}) 50%, hsl(25 95% 53% / ${scrolled ? 0.2 : 0.1}) 70%, transparent 100%) 1`,
       }}
     >
-      <div className="container mx-auto flex h-12 items-center justify-between px-4">
+      <div className="container mx-auto flex h-10 items-center justify-between px-4">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2 group">
           <img src={logoImg} alt="ClawBonk logo" className="h-6 w-6 rounded-full" />
