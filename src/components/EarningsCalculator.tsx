@@ -52,7 +52,10 @@ const EarningsCalculator = () => {
           viewport={{ once: true }}
           className="max-w-xl mx-auto"
         >
-          <div className="bg-card border border-border/30 rounded-lg p-5">
+          <div className="relative rounded-lg p-[1px] overflow-hidden">
+            {/* Animated gradient border */}
+            <div className="absolute inset-0 rounded-lg bg-[conic-gradient(from_var(--border-angle),hsl(var(--primary))_0%,hsl(145_80%_25%)_25%,hsl(180_100%_40%)_50%,hsl(145_80%_25%)_75%,hsl(var(--primary))_100%)] animate-border-spin" />
+            <div className="relative bg-card rounded-lg p-5">
             {/* Volume slider */}
             <div className="mb-5">
               <div className="flex items-center justify-between mb-2">
@@ -109,6 +112,7 @@ const EarningsCalculator = () => {
                 ))}
               </div>
             </div>
+          </div>
 
             <p className="text-[10px] text-muted-foreground/40 text-center mt-3 font-mono">
               1% creator fee · 65% agent share · SOL @ ${solPrice.toFixed(0)}
