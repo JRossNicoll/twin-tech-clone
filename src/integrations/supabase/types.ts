@@ -156,6 +156,39 @@ export type Database = {
           },
         ]
       }
+      token_launches: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          status: string
+          ticker: string
+          wallet_address: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          status?: string
+          ticker: string
+          wallet_address: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          status?: string
+          ticker?: string
+          wallet_address?: string
+        }
+        Relationships: []
+      }
       tokens: {
         Row: {
           change_24h: number | null
