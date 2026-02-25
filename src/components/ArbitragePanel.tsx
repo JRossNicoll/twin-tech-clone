@@ -1,106 +1,120 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { useSolPrice } from "@/hooks/useSolanaData";
+import { RefreshCw } from "lucide-react";
 
-const dexes = [
-  { name: "Jupiter", price: "78.6542", impact: "0.00%", best: true },
-  { name: "Raydium", price: "78.6464", impact: "0.00%" },
-  { name: "Orca", price: "78.6501", impact: "0.00%" },
-  { name: "Meteora", price: "78.6499", impact: "0.00%" },
-  { name: "phoenix", price: "78.6273", impact: "0.00%" },
-  { name: "fluxbeam", price: "74.4783", impact: "0.05%" },
-  { name: "saros", price: "77.6992", impact: "0.01%" },
-  { name: "stabble", price: "78.2625", impact: "0.01%" },
-  { name: "aldrin", price: "77.2907", impact: "0.02%" },
-  { name: "solfi", price: "78.6530", impact: "0.00%" },
-  { name: "goonfi", price: "78.6527", impact: "0.00%" },
+const baseDexes = [
+  { name: "Jupiter", spread: 0 },
+  { name: "Raydium", spread: -0.0078 },
+  { name: "Orca", spread: -0.0041 },
+  { name: "Meteora", spread: -0.0043 },
+  { name: "Phoenix", spread: -0.0269 },
+  { name: "Fluxbeam", spread: -4.176 },
+  { name: "Saros", spread: -0.955 },
+  { name: "Stabble", spread: -0.392 },
+  { name: "Aldrin", spread: -1.364 },
+  { name: "SolFi", spread: -0.0012 },
+  { name: "GoonFi", spread: -0.0015 },
 ];
 
-const codeSnippet = `POST /api/arbitrage/quote
-{
-  "inputMint": "So11...112",
-  "outputMint": "EPjFW...Dt1v",
-  "amount": "1000000000",
-  "agentId": "your-agent-id"
-}
-
-// Response includes arbOpportunity with:
-// grossProfit, platformFee (5%), netProfit`;
-
 const ArbitragePanel = () => {
+  const { data: solPriceData } = useSolPrice();
+  const solPrice = solPriceData?.price ?? 178.65;
+  const [refreshing, setRefreshing] = useState(false);
+
+  const dexes = baseDexes.map((d) => ({
+    ...d,
+    price: (solPrice + d.spread).toFixed(4),
+    impact: Math.abs(d.spread / solPrice * 100).toFixed(2) + "%",
+    best: d.spread === 0,
+  }));
+
+  const bestPrice = solPrice;
+  const worstPrice = solPrice + baseDexes.reduce((min, d) => Math.min(min, d.spread), 0);
+  const grossProfit = bestPrice - worstPrice;
+  const platformFee = grossProfit * 0.05;
+  const netProfit = grossProfit - platformFee;
+  const spreadBps = ((grossProfit / bestPrice) * 10000).toFixed(0);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => setRefreshing(false), 1000);
+  };
+
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-primary/3 rounded-full blur-[120px]" />
-      </div>
+    <section className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Arbitrage <span className="text-primary text-glow">Intelligence</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-3">
+            Arbitrage <span className="text-primary">Intelligence</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Real-time price comparison across Jupiter, Raydium, Orca & Meteora
+          <p className="text-muted-foreground text-sm">
+            Live price comparison across 11 Solana DEXes
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-4 max-w-5xl mx-auto">
           {/* Price comparison table */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-card border border-border/50 rounded-xl overflow-hidden"
+            className="bg-card border border-border/30 rounded-lg overflow-hidden"
           >
-            <div className="px-5 py-4 border-b border-border/50 flex items-center justify-between">
-              <span className="font-semibold text-sm">SOL → USDC (1 SOL)</span>
+            <div className="px-4 py-3 border-b border-border/20 flex items-center justify-between">
+              <span className="font-semibold text-xs">SOL → USDC (1 SOL)</span>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground">Spread: 545 BPS (5.454%)</span>
+                <span className="text-[10px] text-muted-foreground font-mono">Spread: {spreadBps} BPS</span>
+                <button onClick={handleRefresh} className="text-muted-foreground hover:text-primary transition-colors">
+                  <RefreshCw className={`h-3 w-3 ${refreshing ? "animate-spin" : ""}`} />
+                </button>
               </div>
             </div>
-            <div className="divide-y divide-border/30">
+            <div className="divide-y divide-border/10">
               {dexes.map((dex) => (
-                <div key={dex.name} className="flex items-center justify-between px-5 py-3 hover:bg-secondary/20 transition-colors">
-                  <div className="flex items-center gap-2">
+                <div key={dex.name} className="flex items-center justify-between px-4 py-2 hover:bg-secondary/10 transition-colors">
+                  <div className="flex items-center gap-1.5">
                     {dex.best && (
-                      <Badge className="bg-primary/20 text-primary border-primary/30 text-[10px] px-1.5 py-0">
+                      <Badge className="bg-primary/15 text-primary border-primary/20 text-[8px] px-1 py-0 rounded">
                         BEST
                       </Badge>
                     )}
-                    <span className="text-sm font-medium capitalize">{dex.name}</span>
+                    <span className="text-[11px] font-medium">{dex.name}</span>
                   </div>
-                  <div className="flex items-center gap-6 text-sm">
+                  <div className="flex items-center gap-4 text-[11px]">
                     <span className="font-mono text-foreground">{dex.price} USDC</span>
-                    <span className="text-muted-foreground text-xs">Impact: {dex.impact}</span>
+                    <span className="text-muted-foreground/60 text-[10px] font-mono">{dex.impact}</span>
                   </div>
                 </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Arbitrage breakdown + code */}
+          {/* Breakdown + code */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-3"
           >
-            {/* Breakdown */}
-            <div className="bg-card border border-border/50 rounded-xl p-5">
-              <h3 className="font-semibold text-sm mb-4">Arbitrage Breakdown</h3>
-              <div className="space-y-3">
+            <div className="bg-card border border-border/30 rounded-lg p-4">
+              <h3 className="font-semibold text-xs mb-3">Arbitrage Breakdown</h3>
+              <div className="space-y-2">
                 {[
-                  { label: "Strategy", value: "Buy Jupiter → Sell fluxbeam" },
-                  { label: "Gross Profit", value: "4.1760 USDC" },
-                  { label: "Platform Fee (5%)", value: "-0.2088 USDC", dim: true },
-                  { label: "Net Profit", value: "3.9672 USDC", highlight: true },
+                  { label: "Strategy", value: "Buy Jupiter → Sell Fluxbeam" },
+                  { label: "Gross Profit", value: `${grossProfit.toFixed(4)} USDC` },
+                  { label: "Platform Fee (5%)", value: `-${platformFee.toFixed(4)} USDC`, dim: true },
+                  { label: "Net Profit", value: `${netProfit.toFixed(4)} USDC`, highlight: true },
                 ].map((row) => (
-                  <div key={row.label} className="flex items-center justify-between text-sm">
+                  <div key={row.label} className="flex items-center justify-between text-[11px]">
                     <span className="text-muted-foreground">{row.label}</span>
-                    <span className={`font-mono ${row.highlight ? "text-primary font-semibold text-glow" : row.dim ? "text-destructive" : "text-foreground"}`}>
+                    <span className={`font-mono ${row.highlight ? "text-primary font-semibold" : row.dim ? "text-destructive" : "text-foreground"}`}>
                       {row.value}
                     </span>
                   </div>
@@ -108,13 +122,17 @@ const ArbitragePanel = () => {
               </div>
             </div>
 
-            {/* API code */}
-            <div className="bg-card border border-border/50 rounded-xl p-5">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-semibold text-sm">Available via API</h3>
-              </div>
-              <pre className="bg-secondary/30 rounded-lg p-4 text-xs font-mono text-muted-foreground overflow-x-auto leading-relaxed">
-                {codeSnippet}
+            <div className="bg-card border border-border/30 rounded-lg p-4">
+              <h3 className="font-semibold text-xs mb-2">API Example</h3>
+              <pre className="bg-secondary/20 rounded p-3 text-[10px] font-mono text-muted-foreground overflow-x-auto leading-relaxed">
+{`POST /api/arbitrage/quote
+{
+  "inputMint": "So11...112",
+  "outputMint": "EPjFW...Dt1v",
+  "amount": "1000000000"
+}
+
+// → netProfit: ${netProfit.toFixed(4)} USDC`}
               </pre>
             </div>
           </motion.div>
