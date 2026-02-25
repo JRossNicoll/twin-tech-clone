@@ -27,10 +27,10 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden py-24 md:py-36">
+    <section className="relative overflow-hidden py-20 md:py-32">
       {/* Minimal ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-primary/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[250px] bg-primary/[0.03] rounded-full blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -38,14 +38,14 @@ const HeroSection = () => {
           {/* SOL price chip */}
           {solPrice ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-1.5 bg-secondary/60 border border-border/40 rounded-full px-3 py-1 text-[10px] font-mono text-muted-foreground mb-8">
+              className="inline-flex items-center gap-1.5 bg-secondary/60 border border-border/40 rounded-full px-3 py-1 text-[10px] font-mono text-muted-foreground mb-6">
               <span className="h-1 w-1 rounded-full bg-primary" />
               SOL ${solPrice.toFixed(2)}
             </motion.div>
           ) : null}
 
           {/* Rotating headline */}
-          <div className="h-[52px] md:h-[72px] flex items-center justify-center mb-4">
+          <div className="h-[48px] md:h-[64px] flex items-center justify-center mb-3">
             <AnimatePresence mode="wait">
               <motion.h1
                 key={currentIndex}
@@ -53,8 +53,8 @@ const HeroSection = () => {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -16, filter: "blur(6px)" }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="text-4xl md:text-6xl font-bold tracking-tight text-primary"
-                style={{ textShadow: "0 0 40px hsl(145 100% 50% / 0.2)" }}
+                className="text-3xl md:text-5xl font-bold tracking-tight text-primary"
+                style={{ textShadow: "0 0 40px hsl(145 100% 50% / 0.15)" }}
               >
                 {headlines[currentIndex]}
               </motion.h1>
@@ -66,7 +66,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.4 }}
-            className="text-sm md:text-base text-muted-foreground max-w-lg mx-auto mb-8 leading-relaxed"
+            className="text-sm text-muted-foreground max-w-md mx-auto mb-6 leading-relaxed"
           >
             Launch tokens for free. Swap via Jupiter. Earn 65% of every trading fee.
           </motion.p>
@@ -76,21 +76,21 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.4 }}
-            className="flex flex-col sm:flex-row gap-2.5 justify-center"
+            className="flex flex-col sm:flex-row gap-2 justify-center"
           >
             <Button
-              size="lg"
-              className="h-10 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-xs px-6 rounded-lg"
+              size="sm"
+              className="h-8 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-xs px-5 rounded-lg"
             >
               Get Started
-              <ArrowRight className="ml-1 h-3.5 w-3.5" />
+              <ArrowRight className="ml-1 h-3 w-3" />
             </Button>
             <Button
-              size="lg"
+              size="sm"
               variant="outline"
-              className="h-10 border-border/50 hover:border-primary/30 hover:bg-primary/[0.03] font-medium text-xs px-6 rounded-lg text-muted-foreground"
+              className="h-8 border-border/40 hover:border-primary/30 hover:bg-primary/[0.03] font-medium text-xs px-5 rounded-lg text-muted-foreground"
             >
-              <BarChart3 className="mr-1 h-3.5 w-3.5" />
+              <BarChart3 className="mr-1 h-3 w-3" />
               View Leaderboard
             </Button>
           </motion.div>
@@ -100,7 +100,7 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-16 flex items-center justify-center gap-12 md:gap-16"
+            className="mt-12 flex items-center justify-center gap-10 md:gap-14"
           >
             {[
               { label: "Tokens Launched", value: platformStats ? platformStats.tokens_launched?.toLocaleString() ?? "0" : "—" },
@@ -108,10 +108,10 @@ const HeroSection = () => {
               { label: "Active Agents", value: platformStats ? platformStats.active_agents?.toLocaleString() ?? "0" : "—" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-lg md:text-xl font-bold text-primary font-mono tracking-tight">
+                <div className="text-base md:text-lg font-bold text-primary font-mono tracking-tight">
                   {stat.value}
                 </div>
-                <div className="text-[10px] text-muted-foreground/50 mt-0.5 uppercase tracking-[0.15em] font-medium">{stat.label}</div>
+                <div className="text-[9px] text-muted-foreground/50 mt-0.5 uppercase tracking-[0.15em] font-medium">{stat.label}</div>
               </div>
             ))}
           </motion.div>

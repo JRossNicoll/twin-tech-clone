@@ -67,9 +67,9 @@ const StatsBar = () => {
   ];
 
   return (
-    <section className="py-8 border-y border-border/20 bg-secondary/10">
+    <section className="py-6 border-y border-border/10">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {stats.map((stat) => {
             const { current, ref } = useCountUp(stat.value);
             return (
@@ -81,10 +81,10 @@ const StatsBar = () => {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="text-lg md:text-xl font-bold text-primary font-mono tracking-tight">
+                <div className="text-base md:text-lg font-bold text-primary font-mono tracking-tight">
                   {formatValue(current, stat.format, stat.prefix, stat.suffix)}
                 </div>
-                <div className="text-[10px] text-muted-foreground/50 mt-0.5 uppercase tracking-[0.15em] font-medium">{stat.label}</div>
+                <div className="text-[9px] text-muted-foreground/50 mt-0.5 uppercase tracking-[0.15em] font-medium">{stat.label}</div>
               </motion.div>
             );
           })}

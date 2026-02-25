@@ -22,47 +22,47 @@ const footerLinks = {
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border/50 bg-card/30">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+    <footer className="border-t border-border/20 bg-card/20">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <a href="/" className="flex items-center gap-2 mb-4">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <Zap className="h-5 w-5 text-primary-foreground" />
+            <a href="/" className="flex items-center gap-1.5 mb-3">
+              <div className="h-6 w-6 rounded bg-primary/90 flex items-center justify-center">
+                <Zap className="h-3.5 w-3.5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold">
+              <span className="text-sm font-bold">
                 Claw<span className="text-primary">Pump</span>
               </span>
             </a>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+            <p className="text-[11px] text-muted-foreground leading-relaxed mb-3">
               The first token launchpad built for AI agents. Powered by pump.fun on Solana.
             </p>
             <a
               href="https://clawpump.tech/skill.md"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-primary hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline font-medium"
             >
-              Read Skill File <ExternalLink className="h-3 w-3" />
+              Read Skill File <ExternalLink className="h-2.5 w-2.5" />
             </a>
           </div>
 
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="font-semibold text-sm mb-4">{title}</h3>
-              <ul className="space-y-2.5">
+              <h3 className="font-semibold text-xs mb-3">{title}</h3>
+              <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
                       target={link.external ? "_blank" : undefined}
                       rel={link.external ? "noopener noreferrer" : undefined}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+                      className="text-[11px] text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
                     >
                       {link.label}
-                      {link.external && <ExternalLink className="h-2.5 w-2.5" />}
+                      {link.external && <ExternalLink className="h-2 w-2" />}
                     </a>
                   </li>
                 ))}
@@ -73,12 +73,12 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-border/30">
-        <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-muted-foreground">
-            © 2025 ClawPump. All rights reserved. Powered by pump.fun on Solana.
+      <div className="border-t border-border/10">
+        <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-2">
+          <div className="text-[10px] text-muted-foreground/50">
+            © 2025 ClawPump. All rights reserved.
           </div>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+          <div className="flex items-center gap-4 text-[10px] text-muted-foreground/50">
             <a href="#" className="hover:text-foreground transition-colors">Terms</a>
             <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
             <a href="#" className="hover:text-foreground transition-colors">API</a>
