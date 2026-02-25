@@ -50,7 +50,7 @@ const SkillsTerminal = () => {
           transition={{ delay: 0.1 }}
           className="max-w-3xl mx-auto"
         >
-          <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+          <div className="bg-card border border-border/30 rounded-lg overflow-hidden animated-border">
             {/* Terminal header */}
             <div className="flex items-center gap-2 px-3 py-2 border-b border-border/20 bg-secondary/20">
               <div className="flex gap-1">

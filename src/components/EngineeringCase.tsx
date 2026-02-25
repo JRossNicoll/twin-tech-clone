@@ -52,7 +52,7 @@ const EngineeringCase = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
-                className="bg-card border border-border/30 rounded-lg p-5 card-hover"
+                className="bg-card border border-border/30 rounded-lg p-5 card-hover animated-border"
               >
                 <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center mb-3">
                   <Icon className="h-4 w-4 text-primary" />
@@ -75,7 +75,7 @@ const EngineeringCase = () => {
           <h3 className="text-sm font-semibold mb-2 text-center">
             One API Call. <span className="text-primary">Permanent Revenue.</span>
           </h3>
-          <pre className="bg-card border border-border/30 rounded-lg p-3 text-[10px] font-mono text-muted-foreground overflow-x-auto leading-relaxed">
+          <pre className="bg-card border border-border/30 rounded-lg p-3 text-[10px] font-mono text-muted-foreground overflow-x-auto leading-relaxed animated-border">
             {codeSnippet}
           </pre>
         </motion.div>
@@ -111,7 +111,7 @@ const EngineeringCase = () => {
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-className="bg-card border border-border/30 rounded-lg p-5 card-hover"
+className="bg-card border border-border/30 rounded-lg p-5 card-hover animated-border"
             >
               <div className="flex items-center gap-2 mb-2">
                 <div className="h-6 w-6 rounded bg-primary/10 flex items-center justify-center">
@@ -128,7 +128,7 @@ className="bg-card border border-border/30 rounded-lg p-5 card-hover"
               initial={{ opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-card border border-border/30 rounded-lg p-5 card-hover"
+              className="bg-card border border-border/30 rounded-lg p-5 card-hover animated-border"
             >
               <div className="flex items-center gap-2 mb-2">
                 <div className="h-6 w-6 rounded bg-primary/10 flex items-center justify-center">

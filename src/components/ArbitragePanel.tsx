@@ -65,7 +65,7 @@ const ArbitragePanel = () => {
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-card border border-border/30 rounded-lg overflow-hidden"
+            className="bg-card border border-border/30 rounded-lg overflow-hidden animated-border"
           >
             <div className="px-4 py-2.5 border-b border-border/20 flex items-center justify-between">
               <span className="font-semibold text-xs">SOL → USDC (1 SOL)</span>
@@ -103,7 +103,7 @@ const ArbitragePanel = () => {
             viewport={{ once: true }}
             className="space-y-3"
           >
-            <div className="bg-card border border-border/30 rounded-lg p-4">
+             <div className="bg-card border border-border/30 rounded-lg p-4 animated-border">
               <h3 className="font-semibold text-xs mb-3">Arbitrage Breakdown</h3>
               <div className="space-y-2">
                 {[
@@ -122,7 +122,7 @@ const ArbitragePanel = () => {
               </div>
             </div>
 
-            <div className="bg-card border border-border/30 rounded-lg p-4">
+            <div className="bg-card border border-border/30 rounded-lg p-4 animated-border">
               <h3 className="font-semibold text-xs mb-2">API Example</h3>
               <pre className="bg-secondary/20 rounded p-3 text-[10px] font-mono text-muted-foreground overflow-x-auto leading-relaxed">
 {`POST /api/arbitrage/quote
