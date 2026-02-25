@@ -30,7 +30,7 @@ const EarningsCalculator = () => {
   }, [monthlyEarnings]);
 
   return (
-    <section className="py-20 bg-secondary/10" id="tokenomics">
+    <section className="py-20 bg-card/20" id="tokenomics">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -52,11 +52,11 @@ const EarningsCalculator = () => {
           viewport={{ once: true }}
           className="max-w-xl mx-auto"
         >
-          <div className="bg-card border border-border/30 rounded-lg p-6">
+          <div className="bg-card border border-border/30 rounded-lg p-5">
             {/* Volume slider */}
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] text-muted-foreground uppercase tracking-wider">Daily Trading Volume</span>
+            <div className="mb-5">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Daily Trading Volume</span>
                 <span className="text-sm font-bold text-primary font-mono">
                   ${volume.toLocaleString()}
                 </span>
@@ -69,14 +69,14 @@ const EarningsCalculator = () => {
                 step={1000}
                 className="w-full"
               />
-              <div className="flex justify-between text-[10px] text-muted-foreground/50 mt-1.5 font-mono">
+              <div className="flex justify-between text-[10px] text-muted-foreground/50 mt-1 font-mono">
                 <span>$0</span>
                 <span>$500K</span>
               </div>
             </div>
 
             {/* Earnings grid */}
-            <div className="grid grid-cols-3 gap-2.5 mb-5">
+            <div className="grid grid-cols-3 gap-2 mb-4">
               {[
                 { label: "Daily", value: dailyEarnings, sol: dailySol },
                 { label: "Monthly", value: monthlyEarnings, sol: monthlySol },
@@ -84,7 +84,7 @@ const EarningsCalculator = () => {
               ].map((period) => (
                 <div key={period.label} className="bg-secondary/30 rounded-lg p-3 text-center">
                   <div className="text-[10px] text-muted-foreground/60 uppercase tracking-wider mb-1">{period.label}</div>
-                  <div className="text-base md:text-lg font-bold text-primary font-mono">
+                  <div className="text-base font-bold text-primary font-mono">
                     {formatCurrency(period.value)}
                   </div>
                   {period.sol !== undefined && (
@@ -97,7 +97,7 @@ const EarningsCalculator = () => {
             </div>
 
             {/* What it covers */}
-            <div className="border-t border-border/20 pt-4">
+            <div className="border-t border-border/20 pt-3">
               <div className="text-[10px] text-muted-foreground/60 uppercase tracking-wider mb-2">Monthly earnings cover</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {canCover.map(c => (
@@ -110,7 +110,7 @@ const EarningsCalculator = () => {
               </div>
             </div>
 
-            <p className="text-[10px] text-muted-foreground/40 text-center mt-4 font-mono">
+            <p className="text-[10px] text-muted-foreground/40 text-center mt-3 font-mono">
               1% creator fee · 65% agent share · SOL @ ${solPrice.toFixed(0)}
             </p>
           </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { useSolPrice } from "@/hooks/useSolanaData";
@@ -43,8 +43,8 @@ const ArbitragePanel = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 bg-card/20">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ const ArbitragePanel = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-4 max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-3 max-w-4xl mx-auto">
           {/* Price comparison table */}
           <motion.div
             initial={{ opacity: 0, x: -16 }}
@@ -67,7 +67,7 @@ const ArbitragePanel = () => {
             viewport={{ once: true }}
             className="bg-card border border-border/30 rounded-lg overflow-hidden"
           >
-            <div className="px-4 py-3 border-b border-border/20 flex items-center justify-between">
+            <div className="px-4 py-2.5 border-b border-border/20 flex items-center justify-between">
               <span className="font-semibold text-xs">SOL → USDC (1 SOL)</span>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] text-muted-foreground font-mono">Spread: {spreadBps} BPS</span>
@@ -78,7 +78,7 @@ const ArbitragePanel = () => {
             </div>
             <div className="divide-y divide-border/10">
               {dexes.map((dex) => (
-                <div key={dex.name} className="flex items-center justify-between px-4 py-2 hover:bg-secondary/10 transition-colors">
+                <div key={dex.name} className="flex items-center justify-between px-4 py-1.5 hover:bg-secondary/10 transition-colors">
                   <div className="flex items-center gap-1.5">
                     {dex.best && (
                       <Badge className="bg-primary/15 text-primary border-primary/20 text-[8px] px-1 py-0 rounded">

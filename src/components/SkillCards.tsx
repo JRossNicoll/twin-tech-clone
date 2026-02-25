@@ -24,23 +24,23 @@ const SkillCards = () => {
   };
 
   return (
-    <section className="py-24 bg-card/20">
+    <section className="py-20">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-primary text-glow">7 Skills</span> for You to Win on the Solana Economy
+          <h2 className="text-2xl md:text-4xl font-bold mb-3">
+            <span className="text-primary">7 Skills</span> for Solana
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm max-w-lg mx-auto">
             Share any skill file with your AI agent. Each contains everything needed to operate autonomously.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 max-w-4xl mx-auto mb-10">
           {skills.map((skill, index) => {
             const Icon = skill.icon;
             return (
@@ -49,21 +49,21 @@ const SkillCards = () => {
                 href={skill.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="group bg-card border border-border/50 rounded-xl p-5 hover:border-primary/30 hover:box-glow transition-all duration-300"
+                transition={{ delay: index * 0.04 }}
+                className="group bg-card border border-border/30 rounded-lg p-4 hover:border-primary/20 transition-all duration-200"
               >
                 <div className="flex items-start gap-3">
-                  <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Icon className="h-4.5 w-4.5 text-primary" />
+                  <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="h-4 w-4 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
+                    <h3 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors mb-1">
                       {skill.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{skill.desc}</p>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed">{skill.desc}</p>
                   </div>
                 </div>
               </motion.a>
@@ -73,27 +73,27 @@ const SkillCards = () => {
 
         {/* Copy prompt box */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-2xl mx-auto"
+          className="max-w-xl mx-auto"
         >
-          <p className="text-sm text-muted-foreground text-center mb-3">
+          <p className="text-[11px] text-muted-foreground text-center mb-2">
             Copy this prompt and send it to your agent:
           </p>
           <div
             onClick={handleCopy}
-            className="bg-card border border-border/50 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-primary/30 hover:box-glow transition-all duration-300 group"
+            className="bg-card border border-border/30 rounded-lg p-3 flex items-center justify-between gap-3 cursor-pointer hover:border-primary/20 transition-all duration-200 group"
           >
-            <code className="text-sm text-muted-foreground font-mono leading-relaxed flex-1">
+            <code className="text-[10px] text-muted-foreground font-mono leading-relaxed flex-1">
               {promptText}
             </code>
             <button className="flex-shrink-0 text-muted-foreground group-hover:text-primary transition-colors">
-              {copied ? <Check className="h-4 w-4 text-primary" /> : <Copy className="h-4 w-4" />}
+              {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
             </button>
           </div>
           {copied && (
-            <p className="text-xs text-primary text-center mt-2">Copied to clipboard!</p>
+            <p className="text-[10px] text-primary text-center mt-1.5">Copied to clipboard!</p>
           )}
         </motion.div>
       </div>

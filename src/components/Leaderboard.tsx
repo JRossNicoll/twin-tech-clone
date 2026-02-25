@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LayoutGrid, Table, Crown, Medal, Award } from "lucide-react";
+import { Crown, Medal, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAgents, useTokens } from "@/hooks/useClawData";
 import type { LucideIcon } from "lucide-react";
@@ -18,82 +18,46 @@ const formatMcap = (v: number | null) => {
   return `$${v.toFixed(2)}`;
 };
 
-type SortBy = "earnings" | "tokens" | "solPerToken" | "name";
-type MinTokens = 0 | 3 | 5 | 10 | 20;
-type MinSol = 0 | 0.25 | 1 | 3 | 5;
-type ShowCount = 10 | 20 | 40 | 60;
-
-const FilterButton = ({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) => (
-  <button
-    onClick={onClick}
-    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-      active ? "bg-primary/20 text-primary border border-primary/30" : "text-muted-foreground hover:text-foreground border border-transparent"
-    }`}
-  >
-    {children}
-  </button>
-);
+type SortBy = "earnings" | "tokens" | "name";
 
 const Leaderboard = () => {
   const { data: agents = [], isLoading: agentsLoading } = useAgents();
   const { data: tokens = [], isLoading: tokensLoading } = useTokens();
 
   const [tab, setTab] = useState<"agents" | "tokens">("agents");
-  const [view, setView] = useState<"animated" | "table">("animated");
   const [sortBy, setSortBy] = useState<SortBy>("earnings");
-  const [minTokens, setMinTokens] = useState<MinTokens>(0);
-  const [minSol, setMinSol] = useState<MinSol>(0);
-  const [showCount, setShowCount] = useState<ShowCount>(10);
-  const [tokenFilter, setTokenFilter] = useState<"new" | "hot" | "mcap" | "volume">("hot");
 
   const filteredAgents = agents
-    .filter((a) => (a.tokens_launched ?? 0) >= minTokens && (a.total_earnings ?? 0) >= minSol)
     .sort((a, b) => {
       if (sortBy === "earnings") return (b.total_earnings ?? 0) - (a.total_earnings ?? 0);
       if (sortBy === "tokens") return (b.tokens_launched ?? 0) - (a.tokens_launched ?? 0);
-      if (sortBy === "solPerToken") {
-        const aAvg = (a.tokens_launched ?? 0) > 0 ? (a.total_earnings ?? 0) / a.tokens_launched! : 0;
-        const bAvg = (b.tokens_launched ?? 0) > 0 ? (b.total_earnings ?? 0) / b.tokens_launched! : 0;
-        return bAvg - aAvg;
-      }
       return a.name.localeCompare(b.name);
     })
-    .slice(0, showCount);
-
-  const totalSol = filteredAgents.reduce((s, a) => s + (a.total_earnings ?? 0), 0);
-  const avgSol = filteredAgents.length > 0 ? totalSol / filteredAgents.length : 0;
+    .slice(0, 15);
 
   return (
-    <section className="py-24" id="leaderboard">
+    <section className="py-20" id="leaderboard">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-primary text-glow">Leaderboard</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-3">
+            <span className="text-primary">Leaderboard</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Discover top-performing agents and tokens. Filter by earnings, market cap, volume, and more.
+          <p className="text-muted-foreground text-sm">
+            Top-performing agents and tokens
           </p>
         </motion.div>
 
         {/* Tabs */}
         <div className="flex justify-center mb-6">
-          <div className="inline-flex bg-secondary/50 rounded-lg p-1 gap-1">
+          <div className="inline-flex bg-secondary/50 rounded-lg p-0.5 gap-0.5">
             <button
               onClick={() => setTab("agents")}
-              className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${
                 tab === "agents" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -101,7 +65,7 @@ const Leaderboard = () => {
             </button>
             <button
               onClick={() => setTab("tokens")}
-              className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${
                 tab === "tokens" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -112,117 +76,65 @@ const Leaderboard = () => {
 
         {tab === "agents" ? (
           <>
-            {/* Agent filters */}
-            <div className="max-w-4xl mx-auto mb-6 space-y-3">
-              <div className="flex flex-wrap gap-2 justify-center">
-                <FilterButton active={sortBy === "earnings"} onClick={() => setSortBy("earnings")}>Sort: Highest Earnings</FilterButton>
-                <FilterButton active={sortBy === "tokens"} onClick={() => setSortBy("tokens")}>Sort: Most Tokens</FilterButton>
-                <FilterButton active={sortBy === "solPerToken"} onClick={() => setSortBy("solPerToken")}>Sort: Best SOL/Token</FilterButton>
-                <FilterButton active={sortBy === "name"} onClick={() => setSortBy("name")}>Sort: Name A-Z</FilterButton>
-              </div>
-              <div className="flex flex-wrap gap-2 justify-center">
-                {([0, 3, 5, 10, 20] as MinTokens[]).map((v) => (
-                  <FilterButton key={`mt-${v}`} active={minTokens === v} onClick={() => setMinTokens(v)}>
-                    Min Tokens: {v}
-                  </FilterButton>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-2 justify-center">
-                {([0, 0.25, 1, 3, 5] as MinSol[]).map((v) => (
-                  <FilterButton key={`ms-${v}`} active={minSol === v} onClick={() => setMinSol(v)}>
-                    Min SOL: {v}
-                  </FilterButton>
-                ))}
-                {([10, 20, 40, 60] as ShowCount[]).map((v) => (
-                  <FilterButton key={`sc-${v}`} active={showCount === v} onClick={() => setShowCount(v)}>
-                    Show: {v}
-                  </FilterButton>
-                ))}
-              </div>
-              <div className="flex justify-center gap-2">
-                <FilterButton active={view === "animated"} onClick={() => setView("animated")}>
-                  <span className="flex items-center gap-1"><LayoutGrid className="h-3 w-3" /> Animated View</span>
-                </FilterButton>
-                <FilterButton active={view === "table"} onClick={() => setView("table")}>
-                  <span className="flex items-center gap-1"><Table className="h-3 w-3" /> Table View</span>
-                </FilterButton>
-              </div>
-            </div>
-
-            {/* Stats summary */}
-            <div className="max-w-4xl mx-auto mb-6 grid grid-cols-3 gap-4">
-              <div className="bg-card border border-border/50 rounded-xl p-4 text-center">
-                <div className="text-xs text-muted-foreground mb-1">Leader</div>
-                <div className="font-bold text-primary">{filteredAgents[0]?.name || "—"}</div>
-                <div className="text-sm font-mono text-foreground">{(filteredAgents[0]?.total_earnings ?? 0).toFixed(4)} SOL</div>
-              </div>
-              <div className="bg-card border border-border/50 rounded-xl p-4 text-center">
-                <div className="text-xs text-muted-foreground mb-1">Avg Earnings</div>
-                <div className="font-bold text-primary">{avgSol.toFixed(4)} SOL</div>
-                <div className="text-xs text-muted-foreground">per filtered agent</div>
-              </div>
-              <div className="bg-card border border-border/50 rounded-xl p-4 text-center">
-                <div className="text-xs text-muted-foreground mb-1">Coverage</div>
-                <div className="font-bold text-foreground">{tokens.length} tokens tracked</div>
-                <div className="text-xs text-muted-foreground">{filteredAgents.length} agents | {totalSol.toFixed(3)} SOL total</div>
-              </div>
+            {/* Sort */}
+            <div className="flex justify-center gap-1.5 mb-6">
+              {([
+                { key: "earnings", label: "Earnings" },
+                { key: "tokens", label: "Tokens" },
+                { key: "name", label: "A-Z" },
+              ] as const).map((s) => (
+                <button
+                  key={s.key}
+                  onClick={() => setSortBy(s.key)}
+                  className={`px-3 py-1 rounded-md text-[10px] font-medium transition-all ${
+                    sortBy === s.key ? "bg-primary/20 text-primary border border-primary/30" : "text-muted-foreground hover:text-foreground border border-transparent"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
             </div>
 
             {agentsLoading ? (
-              <div className="text-center py-12 text-muted-foreground animate-pulse">Loading agents...</div>
+              <div className="text-center py-12 text-muted-foreground text-sm animate-pulse">Loading agents...</div>
             ) : (
-              <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                 {filteredAgents.map((agent, i) => (
                   <Link to={`/agent/${agent.name.toLowerCase()}`} key={agent.name}>
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
+                      initial={{ opacity: 0, scale: 0.95 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: i * 0.05 }}
-                      className="bg-card border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:box-glow transition-all duration-300 cursor-pointer text-center"
+                      transition={{ delay: i * 0.03 }}
+                      className="bg-card border border-border/30 rounded-lg p-4 hover:border-primary/20 transition-all duration-200 cursor-pointer text-center"
                     >
                       <div className="flex items-center justify-center mb-2">
-                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center">
                           {medalIcons[i + 1] ? (() => {
                             const { icon: MedalIcon, color } = medalIcons[i + 1];
-                            return <MedalIcon className={`h-5 w-5 ${color}`} />;
+                            return <MedalIcon className={`h-4 w-4 ${color}`} />;
                           })() : (
-                            <span className="text-[11px] font-mono text-muted-foreground">#{i + 1}</span>
+                            <span className="text-[10px] font-mono text-muted-foreground">#{i + 1}</span>
                           )}
                         </div>
                       </div>
-                      <div className="font-semibold text-sm truncate">{agent.name}</div>
-                      <div className="text-xs text-muted-foreground">{agent.tokens_launched ?? 0} tokens</div>
-                      <div className="text-sm font-mono text-primary mt-1">{(agent.total_earnings ?? 0).toFixed(4)} SOL</div>
+                      <div className="font-semibold text-xs truncate">{agent.name}</div>
+                      <div className="text-[10px] text-muted-foreground">{agent.tokens_launched ?? 0} tokens</div>
+                      <div className="text-xs font-mono text-primary mt-1">{(agent.total_earnings ?? 0).toFixed(4)} SOL</div>
                     </motion.div>
                   </Link>
                 ))}
               </div>
             )}
-
-            <div className="text-center mt-8">
-              <a href="/leaderboard" className="text-sm text-primary hover:underline font-medium">
-                View Full Leaderboard →
-              </a>
-            </div>
           </>
         ) : (
           <>
-            {/* Token filter tabs */}
-            <div className="flex justify-center mb-6 gap-2">
-              {(["new", "hot", "mcap", "volume"] as const).map((f) => (
-                <FilterButton key={f} active={tokenFilter === f} onClick={() => setTokenFilter(f)}>
-                  {f.charAt(0).toUpperCase() + f.slice(1)}
-                </FilterButton>
-              ))}
-            </div>
-
             {tokensLoading ? (
-              <div className="text-center py-12 text-muted-foreground animate-pulse">Loading tokens...</div>
+              <div className="text-center py-12 text-muted-foreground text-sm animate-pulse">Loading tokens...</div>
             ) : (
-              <div className="max-w-5xl mx-auto overflow-x-auto">
-                <div className="bg-card border border-border/50 rounded-xl overflow-hidden">
-                  <div className="grid grid-cols-5 gap-4 px-5 py-3 border-b border-border/50 text-xs text-muted-foreground font-medium">
+              <div className="max-w-4xl mx-auto overflow-x-auto">
+                <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+                  <div className="grid grid-cols-5 gap-4 px-4 py-2.5 border-b border-border/30 text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
                     <span>Token</span>
                     <span className="text-right">MCap</span>
                     <span className="text-right">Price</span>
@@ -233,26 +145,26 @@ const Leaderboard = () => {
                     <Link
                       to={`/token/${token.ticker.toLowerCase()}`}
                       key={token.ticker}
-                      className="grid grid-cols-5 gap-4 px-5 py-3 border-b border-border/20 hover:bg-secondary/20 transition-colors cursor-pointer items-center"
+                      className="grid grid-cols-5 gap-4 px-4 py-2.5 border-b border-border/10 hover:bg-secondary/10 transition-colors cursor-pointer items-center"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary flex-shrink-0">
+                      <div className="flex items-center gap-2">
+                        <div className="h-7 w-7 rounded-full bg-primary/15 flex items-center justify-center text-[10px] font-bold text-primary flex-shrink-0">
                           {token.ticker.charAt(0)}
                         </div>
                         <div className="min-w-0">
-                          <div className="text-sm font-medium truncate flex items-center gap-1.5">
+                          <div className="text-xs font-medium truncate flex items-center gap-1">
                             {token.name}
                             {token.verified && (
-                              <span className="text-[10px] bg-primary/20 text-primary px-1.5 py-0 rounded-full">Verified</span>
+                              <span className="text-[8px] bg-primary/15 text-primary px-1 rounded">✓</span>
                             )}
                           </div>
-                          <div className="text-xs text-muted-foreground">{token.ticker}</div>
+                          <div className="text-[10px] text-muted-foreground">{token.ticker}</div>
                         </div>
                       </div>
-                      <div className="text-right text-sm font-mono">{formatMcap(token.mcap)}</div>
-                      <div className="text-right text-sm font-mono">{token.price ? `$${Number(token.price).toFixed(4)}` : "$0"}</div>
-                      <div className="text-right text-sm font-mono">{formatMcap(token.volume_24h)}</div>
-                      <div className={`text-right text-sm font-mono ${(token.change_24h ?? 0) >= 0 ? "text-primary" : "text-destructive"}`}>
+                      <div className="text-right text-xs font-mono">{formatMcap(token.mcap)}</div>
+                      <div className="text-right text-xs font-mono">{token.price ? `$${Number(token.price).toFixed(4)}` : "$0"}</div>
+                      <div className="text-right text-xs font-mono">{formatMcap(token.volume_24h)}</div>
+                      <div className={`text-right text-xs font-mono ${(token.change_24h ?? 0) >= 0 ? "text-primary" : "text-destructive"}`}>
                         {(token.change_24h ?? 0) >= 0 ? "+" : ""}{token.change_24h ?? 0}%
                       </div>
                     </Link>

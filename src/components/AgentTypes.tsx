@@ -12,13 +12,13 @@ const agents = [
 
 const AgentTypes = () => {
   return (
-    <section className="py-20 bg-secondary/10">
+    <section className="py-20 bg-card/20">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
           <h2 className="text-2xl md:text-4xl font-bold mb-3">
             Built for <span className="text-primary">Every Kind</span> of Agent

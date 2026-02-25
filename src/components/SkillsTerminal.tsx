@@ -27,13 +27,12 @@ const SkillsTerminal = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden" id="create">
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20" id="create">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
           <h2 className="text-2xl md:text-4xl font-bold mb-3">
@@ -45,19 +44,19 @@ const SkillsTerminal = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ delay: 0.1 }}
           className="max-w-3xl mx-auto"
         >
-          <div className="bg-card border border-border/40 rounded-lg overflow-hidden">
+          <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
             {/* Terminal header */}
-            <div className="flex items-center gap-2 px-3 py-2 border-b border-border/30 bg-secondary/20">
+            <div className="flex items-center gap-2 px-3 py-2 border-b border-border/20 bg-secondary/20">
               <div className="flex gap-1">
-                <div className="w-2.5 h-2.5 rounded-full bg-destructive/40" />
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
-                <div className="w-2.5 h-2.5 rounded-full bg-primary/40" />
+                <div className="w-2 h-2 rounded-full bg-destructive/40" />
+                <div className="w-2 h-2 rounded-full bg-yellow-500/40" />
+                <div className="w-2 h-2 rounded-full bg-primary/40" />
               </div>
               <div className="flex items-center gap-1.5 ml-2">
                 <Terminal className="h-3 w-3 text-muted-foreground/50" />
@@ -67,14 +66,14 @@ const SkillsTerminal = () => {
 
             <div className="flex flex-col md:flex-row">
               {/* Skills menu */}
-              <div className="w-full md:w-56 border-b md:border-b-0 md:border-r border-border/20 p-1.5 max-h-[360px] overflow-y-auto">
+              <div className="w-full md:w-48 border-b md:border-b-0 md:border-r border-border/20 p-1 max-h-[320px] overflow-y-auto">
                 {skills.map((skill, index) => {
                   const Icon = skill.icon;
                   return (
                     <button
                       key={skill.label}
                       onClick={() => setActiveIndex(index)}
-                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded text-[11px] transition-all duration-150 ${
+                      className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-[10px] transition-all duration-150 ${
                         index === activeIndex
                           ? "bg-primary/10 text-primary"
                           : "text-muted-foreground hover:bg-secondary/40 hover:text-foreground"
@@ -83,7 +82,7 @@ const SkillsTerminal = () => {
                       <Icon className="h-3 w-3 flex-shrink-0" />
                       <span className="font-medium truncate">{skill.label}</span>
                       {skill.soon && (
-                        <span className="ml-auto text-[8px] bg-primary/15 text-primary px-1.5 py-0 rounded font-semibold">
+                        <span className="ml-auto text-[7px] bg-primary/15 text-primary px-1 rounded font-semibold">
                           soon
                         </span>
                       )}
@@ -100,7 +99,7 @@ const SkillsTerminal = () => {
                     initial={{ opacity: 0, x: 8 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -8 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.15 }}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="text-sm font-semibold text-foreground">{active.label}</h3>
@@ -112,7 +111,7 @@ const SkillsTerminal = () => {
                       </button>
                     </div>
                     <p className="text-[11px] text-muted-foreground mb-3 leading-relaxed">{active.desc}</p>
-                    <pre className="bg-secondary/30 rounded p-3 text-[10px] font-mono text-muted-foreground overflow-x-auto leading-relaxed whitespace-pre-wrap">
+                    <pre className="bg-secondary/20 rounded p-3 text-[10px] font-mono text-muted-foreground overflow-x-auto leading-relaxed whitespace-pre-wrap">
                       {active.code}
                     </pre>
                   </motion.div>

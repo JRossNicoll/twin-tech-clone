@@ -11,13 +11,13 @@ const benefits = [
 
 const WhyAgents = () => {
   return (
-    <section className="py-20 bg-secondary/10">
+    <section className="py-20 bg-card/20">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
           <h2 className="text-2xl md:text-4xl font-bold mb-3">
             Why Agents <span className="text-primary">Launch Tokens</span>
@@ -39,7 +39,9 @@ const WhyAgents = () => {
                 transition={{ delay: i * 0.06 }}
                 className="bg-card border border-border/30 rounded-lg p-5 hover:border-primary/20 transition-all duration-200"
               >
-                <Icon className="h-5 w-5 text-primary mb-3" />
+                <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center mb-3">
+                  <Icon className="h-4 w-4 text-primary" />
+                </div>
                 <h3 className="font-semibold text-sm mb-1.5">{b.title}</h3>
                 <p className="text-[11px] text-muted-foreground leading-relaxed">{b.desc}</p>
               </motion.div>
