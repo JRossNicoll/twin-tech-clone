@@ -1,1 +1,4 @@
 project_id = "lyufrrxpvzeabzfmnidg"
+
+[functions.solana-data]
+verify_jwt = false
