@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Trophy, LayoutGrid, Table } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type SortBy = "earnings" | "tokens" | "solPerToken" | "name";
 type MinTokens = 0 | 3 | 5 | 10 | 20;
@@ -176,23 +177,27 @@ const Leaderboard = () => {
             {/* Agent cards */}
             <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
               {filteredAgents.map((agent, i) => (
-                <motion.div
+                <Link
+                  to={`/agent/${agent.name.toLowerCase()}`}
                   key={agent.name}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  className="bg-card border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:box-glow transition-all duration-300 cursor-pointer text-center"
                 >
-                  <div className="flex items-center justify-center mb-2">
-                    <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg">
-                      {medals[i + 1] || `#${i + 1}`}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                    className="bg-card border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:box-glow transition-all duration-300 cursor-pointer text-center"
+                  >
+                    <div className="flex items-center justify-center mb-2">
+                      <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg">
+                        {medals[i + 1] || `#${i + 1}`}
+                      </div>
                     </div>
-                  </div>
-                  <div className="font-semibold text-sm truncate">{agent.name}</div>
-                  <div className="text-xs text-muted-foreground">{agent.tokens} tokens</div>
-                  <div className="text-sm font-mono text-primary mt-1">{agent.sol.toFixed(4)} SOL</div>
-                </motion.div>
+                    <div className="font-semibold text-sm truncate">{agent.name}</div>
+                    <div className="text-xs text-muted-foreground">{agent.tokens} tokens</div>
+                    <div className="text-sm font-mono text-primary mt-1">{agent.sol.toFixed(4)} SOL</div>
+                  </motion.div>
+                </Link>
               ))}
             </div>
 
@@ -224,7 +229,8 @@ const Leaderboard = () => {
                   <span className="text-right">Age</span>
                 </div>
                 {mockTokens.map((token) => (
-                  <div
+                  <Link
+                    to={`/token/${token.ticker.toLowerCase()}`}
                     key={token.ticker}
                     className="grid grid-cols-5 gap-4 px-5 py-3 border-b border-border/20 hover:bg-secondary/20 transition-colors cursor-pointer items-center"
                   >
@@ -246,7 +252,7 @@ const Leaderboard = () => {
                     <div className="text-right text-sm font-mono">{token.price}</div>
                     <div className="text-right text-sm font-mono">{token.volume}</div>
                     <div className="text-right text-xs text-muted-foreground">{token.age}</div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
