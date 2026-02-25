@@ -69,8 +69,12 @@ const HotTicker = () => {
               <div className="relative z-10">
                 {/* Top row: icon + name + change badge */}
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className="h-8 w-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-xs group-hover:bg-primary/20 group-hover:border-primary/30 transition-all">
-                    {token.ticker.slice(0, 2)}
+                  <div className="h-8 w-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden group-hover:bg-primary/20 group-hover:border-primary/30 transition-all">
+                    <img
+                      src={`https://api.dicebear.com/9.x/shapes/svg?seed=${token.ticker}&backgroundColor=transparent&shape1Color=f97316,fb923c,fdba74&shape2Color=ea580c,f97316,fb923c&shape3Color=c2410c,ea580c,f97316`}
+                      alt={token.name}
+                      className="h-full w-full"
+                    />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="font-semibold text-xs text-foreground group-hover:text-primary transition-colors truncate">
