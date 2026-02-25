@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Wallet, LogOut } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
@@ -63,22 +63,28 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-      scrolled
-        ? "bg-background/90 backdrop-blur-xl border-b border-border/20 shadow-[0_4px_20px_hsl(0_0%_0%/0.3)]"
-        : "bg-background/70 backdrop-blur-xl border-b border-border/10"
-    }`}>
-      <div className="container mx-auto flex h-14 items-center justify-between px-4">
+    <nav
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? "bg-card/95 backdrop-blur-xl shadow-[0_1px_0_hsl(25_95%_53%/0.08),0_4px_24px_hsl(0_0%_0%/0.4)]"
+          : "bg-card/80 backdrop-blur-xl"
+      }`}
+      style={{
+        borderBottom: "1px solid",
+        borderImage: `linear-gradient(90deg, transparent 0%, hsl(25 95% 53% / ${scrolled ? 0.2 : 0.1}) 30%, hsl(25 95% 53% / ${scrolled ? 0.25 : 0.12}) 50%, hsl(25 95% 53% / ${scrolled ? 0.2 : 0.1}) 70%, transparent 100%) 1`,
+      }}
+    >
+      <div className="container mx-auto flex h-12 items-center justify-between px-4">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2 group">
-          <img src={logoImg} alt="ClawBonk logo" className="h-7 w-7 rounded-full" />
-          <span className="text-[15px] font-bold tracking-tight">
-            claw<span className="text-primary font-extrabold">bonk</span>
+          <img src={logoImg} alt="ClawBonk logo" className="h-6 w-6 rounded-full" />
+          <span className="text-[14px] font-bold tracking-tight">
+            claw <span className="text-primary font-extrabold">bonk</span>
           </span>
         </a>
 
-        {/* Desktop links — right-aligned */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-0">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -86,21 +92,20 @@ const Navbar = () => {
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
               onClick={(e) => handleNavClick(e, link.href, link.external)}
-              className="px-3.5 py-1.5 rounded-md text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors duration-150"
+              className="px-3 py-1.5 text-[13px] font-medium text-muted-foreground/70 hover:text-foreground transition-colors duration-150"
             >
               {link.label}
             </a>
           ))}
 
-          {/* Connect button */}
           <Button
             size="sm"
             onClick={handleWalletClick}
             variant={connected ? "outline" : "default"}
-            className={`ml-2 h-8 px-5 text-[12px] font-semibold rounded-full transition-all ${
+            className={`ml-3 h-[30px] px-5 text-[11px] font-semibold rounded-full transition-all ${
               connected
-                ? "border-border/40 hover:border-primary/30 text-muted-foreground hover:text-foreground"
-                : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_16px_hsl(25_95%_53%/0.15)]"
+                ? "border-primary/25 hover:border-primary/40 text-muted-foreground hover:text-foreground bg-transparent"
+                : "bg-transparent border border-primary/40 text-primary hover:bg-primary/10 hover:border-primary/60"
             }`}
           >
             {connected ? (
@@ -125,7 +130,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-border/10 bg-background/95 backdrop-blur-xl">
+        <div className="md:hidden border-t border-border/10 bg-card/95 backdrop-blur-xl">
           <div className="container mx-auto px-4 py-3 flex flex-col gap-0.5">
             {navLinks.map((link) => (
               <a
@@ -142,7 +147,7 @@ const Navbar = () => {
             <Button
               size="sm"
               onClick={handleWalletClick}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold mt-2 w-full h-9 text-[12px] rounded-full"
+              className="border border-primary/40 bg-transparent text-primary hover:bg-primary/10 font-semibold mt-2 w-full h-9 text-[12px] rounded-full"
             >
               {connected ? (
                 <>
