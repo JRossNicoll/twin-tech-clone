@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Trophy, LayoutGrid, Table } from "lucide-react";
+import { LayoutGrid, Table, Crown, Medal, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAgents, useTokens } from "@/hooks/useClawData";
+import type { LucideIcon } from "lucide-react";
 
-const medals: Record<number, string> = { 1: "🥇", 2: "🥈", 3: "🥉" };
+const medalIcons: Record<number, { icon: LucideIcon; color: string }> = {
+  1: { icon: Crown, color: "text-yellow-400" },
+  2: { icon: Medal, color: "text-muted-foreground" },
+  3: { icon: Award, color: "text-amber-600" },
+};
 
 const formatMcap = (v: number | null) => {
   if (!v) return "$0";
@@ -177,8 +182,13 @@ const Leaderboard = () => {
                       className="bg-card border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:box-glow transition-all duration-300 cursor-pointer text-center"
                     >
                       <div className="flex items-center justify-center mb-2">
-                        <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg">
-                          {medals[i + 1] || `#${i + 1}`}
+                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                          {medalIcons[i + 1] ? (() => {
+                            const { icon: MedalIcon, color } = medalIcons[i + 1];
+                            return <MedalIcon className={`h-5 w-5 ${color}`} />;
+                          })() : (
+                            <span className="text-[11px] font-mono text-muted-foreground">#{i + 1}</span>
+                          )}
                         </div>
                       </div>
                       <div className="font-semibold text-sm truncate">{agent.name}</div>
