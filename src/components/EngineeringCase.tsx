@@ -52,7 +52,7 @@ const EngineeringCase = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
-                className="bg-card border border-border/30 rounded-lg p-5"
+                className="bg-card border border-border/30 rounded-lg p-5 card-hover"
               >
                 <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center mb-3">
                   <Icon className="h-4 w-4 text-primary" />
@@ -111,7 +111,7 @@ const EngineeringCase = () => {
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-card border border-border/30 rounded-lg p-5"
+className="bg-card border border-border/30 rounded-lg p-5 card-hover"
             >
               <div className="flex items-center gap-2 mb-2">
                 <div className="h-6 w-6 rounded bg-primary/10 flex items-center justify-center">
@@ -128,7 +128,7 @@ const EngineeringCase = () => {
               initial={{ opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-card border border-border/30 rounded-lg p-5"
+              className="bg-card border border-border/30 rounded-lg p-5 card-hover"
             >
               <div className="flex items-center gap-2 mb-2">
                 <div className="h-6 w-6 rounded bg-primary/10 flex items-center justify-center">

@@ -53,7 +53,7 @@ const SkillCards = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.04 }}
-                className="group bg-card border border-border/30 rounded-lg p-4 hover:border-primary/20 transition-all duration-200"
+                className="group bg-card border border-border/30 rounded-lg p-4 card-hover"
               >
                 <div className="flex items-start gap-3">
                   <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
