@@ -3,12 +3,14 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Rocket, Loader2, Wallet, ImagePlus, AlertCircle } from "lucide-react";
+import { Rocket, Loader2, Wallet, ImagePlus, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const CreatePortal = () => {
-  const { connected } = useWallet();
+  const { connected, publicKey } = useWallet();
   const { setVisible } = useWalletModal();
 
   const [form, setForm] = useState({
@@ -23,17 +25,28 @@ const CreatePortal = () => {
   const canSubmit = form.name.trim() && form.ticker.trim() && connected;
 
   const handleLaunch = async () => {
-    if (!connected) {
+    if (!connected || !publicKey) {
       setVisible(true);
       return;
     }
     setError(null);
     setLaunching(true);
-    // Simulate launch — replace with real API call
-    await new Promise((r) => setTimeout(r, 2000));
-    setLaunching(false);
-    // TODO: integrate real bonk.fun launch endpoint
-    alert(`Token "${form.ticker}" launch submitted!`);
+    try {
+      const { error: dbError } = await supabase.from("token_launches").insert({
+        name: form.name.trim(),
+        ticker: form.ticker.trim(),
+        description: form.description.trim() || null,
+        image_url: form.imageUrl.trim() || null,
+        wallet_address: publicKey.toBase58(),
+      });
+      if (dbError) throw dbError;
+      toast.success(`Token "${form.ticker}" launch submitted!`);
+      setForm({ name: "", ticker: "", description: "", imageUrl: "" });
+    } catch (err: any) {
+      setError(err.message || "Failed to submit launch");
+    } finally {
+      setLaunching(false);
+    }
   };
 
   const update = (field: string, value: string) =>
