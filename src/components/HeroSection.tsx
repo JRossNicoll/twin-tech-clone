@@ -111,7 +111,14 @@ const HeroSection = () => {
           >
             <Button
               size="default"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm px-6 rounded-lg shadow-[0_0_20px_hsl(145_100%_50%/0.2)]"
+              onClick={() => {
+                const el = document.getElementById("create-portal");
+                if (el) {
+                  const y = el.getBoundingClientRect().top + window.scrollY - 56;
+                  window.scrollTo({ top: y, behavior: "smooth" });
+                }
+              }}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm px-6 rounded-lg shadow-[0_0_20px_hsl(25_95%_53%/0.2)]"
             >
               Get Started
               <ArrowRight className="ml-1.5 h-4 w-4" />
@@ -119,6 +126,13 @@ const HeroSection = () => {
             <Button
               size="default"
               variant="outline"
+              onClick={() => {
+                const el = document.getElementById("leaderboard");
+                if (el) {
+                  const y = el.getBoundingClientRect().top + window.scrollY - 56;
+                  window.scrollTo({ top: y, behavior: "smooth" });
+                }
+              }}
               className="border-border/40 hover:border-primary/30 hover:bg-primary/[0.03] font-medium text-sm px-6 rounded-lg text-muted-foreground"
             >
               <BarChart3 className="mr-1.5 h-4 w-4" />

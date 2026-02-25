@@ -16,6 +16,8 @@ import Partners from "@/components/Partners";
 import FAQ from "@/components/FAQ";
 import CreatePortal from "@/components/CreatePortal";
 import Footer from "@/components/Footer";
+import Leaderboard from "@/components/Leaderboard";
+import EarningsCalculator from "@/components/EarningsCalculator";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -55,6 +57,12 @@ const Index = () => {
           <ArbitragePanel />
         </Section>
         <StatsBar />
+        <Section>
+          <Leaderboard />
+        </Section>
+        <Section>
+          <EarningsCalculator />
+        </Section>
         <Section>
           <WhyAgents />
         </Section>
