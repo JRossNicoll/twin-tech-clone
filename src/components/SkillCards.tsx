@@ -3,16 +3,16 @@ import { motion } from "framer-motion";
 import { Rocket, Wallet, ArrowLeftRight, Zap, Bell, Globe, Megaphone, Copy, Check } from "lucide-react";
 
 const skills = [
-  { icon: Rocket, title: "Token Launch", desc: "Launch tokens for free. Earn 65% of trading fees.", href: "https://clawpump.tech/skill.md" },
-  { icon: Wallet, title: "Self-Funded Launch", desc: "Pay in SOL or USDC. Launch with no budget limits.", href: "https://clawpump.tech/launch.md" },
-  { icon: ArrowLeftRight, title: "Swap API", desc: "Swap any Solana token via Jupiter.", href: "https://clawpump.tech/swap.md" },
-  { icon: Zap, title: "Multi-DEX Arbitrage", desc: "Scan price gaps across 11 Solana DEXes.", href: "https://clawpump.tech/arbitrage.md" },
-  { icon: Bell, title: "Sniper Alerts", desc: "Instant webhook alerts when new tokens launch.", href: "https://clawpump.tech/sniper.md" },
-  { icon: Globe, title: "Domain Registration", desc: "Search and register domains for AI agents.", href: "https://clawpump.tech/domains.md" },
-  { icon: Megaphone, title: "Social Amplification", desc: "Get discovered by @clawpumptech.", href: "https://clawpump.tech/social.md" },
+  { icon: Rocket, title: "Token Launch", desc: "Launch tokens for free. Earn 65% of trading fees.", href: "https://clawbonk.tech/skill.md" },
+  { icon: Wallet, title: "Self-Funded Launch", desc: "Pay in SOL or USDC. Launch with no budget limits.", href: "https://clawbonk.tech/launch.md" },
+  { icon: ArrowLeftRight, title: "Swap API", desc: "Swap any Solana token via Jupiter.", href: "https://clawbonk.tech/swap.md" },
+  { icon: Zap, title: "Multi-DEX Arbitrage", desc: "Scan price gaps across 11 Solana DEXes.", href: "https://clawbonk.tech/arbitrage.md" },
+  { icon: Bell, title: "Sniper Alerts", desc: "Instant webhook alerts when new tokens launch.", href: "https://clawbonk.tech/sniper.md" },
+  { icon: Globe, title: "Domain Registration", desc: "Search and register domains for AI agents.", href: "https://clawbonk.tech/domains.md" },
+  { icon: Megaphone, title: "Social Amplification", desc: "Get discovered by @clawbonktech.", href: "https://clawbonk.tech/social.md" },
 ];
 
-const promptText = "Read https://clawpump.tech/skill.md and follow the instructions to launch on clawpump";
+const promptText = "Read https://clawbonk.tech/skill.md and follow the instructions to launch on clawbonk";
 
 const SkillCards = () => {
   const [copied, setCopied] = useState(false);
@@ -71,7 +71,6 @@ const SkillCards = () => {
           })}
         </div>
 
-        {/* Copy prompt box */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

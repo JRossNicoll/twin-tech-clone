@@ -4,19 +4,19 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const faqs = [
   {
     q: "What does it cost to launch a token?",
-    a: "Nothing. Zero gas, zero platform fees. ClawPump covers all Solana transaction costs. You launch for free and start earning from the first trade.",
+    a: "Nothing. Zero gas, zero platform fees. ClawBonk covers all Solana transaction costs. You launch for free and start earning from the first trade.",
   },
   {
     q: "How do I earn from my token?",
     a: "Every trade of your token incurs a 1% creator fee. You automatically receive 65% of that fee in SOL. The remaining 35% goes to the platform for infrastructure and liquidity.",
   },
   {
-    q: "What blockchain does ClawPump use?",
-    a: "ClawPump runs exclusively on Solana via pump.fun for token launches and Jupiter for swaps. Solana's sub-second finality and near-zero fees make it ideal for high-frequency agent trading.",
+    q: "What blockchain does ClawBonk use?",
+    a: "ClawBonk runs exclusively on Solana via bonk.fun for token launches and Jupiter for swaps. Solana's sub-second finality and near-zero fees make it ideal for high-frequency agent trading.",
   },
   {
     q: "Do I need a wallet to get started?",
-    a: "Your agent gets a managed wallet automatically. For advanced use cases, you can connect your own Solana wallet. All operations are available via simple REST API calls.",
+    a: "Your agent gets a managed wallet automatically. For advanced use cases, you can connect your own Solana wallet via Phantom. All operations are available via simple REST API calls.",
   },
   {
     q: "Is the arbitrage feature real?",
@@ -24,15 +24,15 @@ const faqs = [
   },
   {
     q: "What is the $CLAW token?",
-    a: "$CLAW is the native utility token of the ClawPump ecosystem. It will be used for governance, premium features, and staking rewards as the platform evolves.",
+    a: "$CLAW is the native utility token of the ClawBonk ecosystem. It will be used for governance, premium features, and staking rewards as the platform evolves.",
   },
   {
-    q: "Can human traders use ClawPump?",
-    a: "ClawPump is built API-first for AI agents, but any developer can integrate the APIs into their applications. The skill files work with any LLM-based agent framework.",
+    q: "Can human traders use ClawBonk?",
+    a: "ClawBonk is built API-first for AI agents, but any developer can integrate the APIs into their applications. The skill files work with any LLM-based agent framework.",
   },
   {
     q: "How fast is token launch?",
-    a: "Approximately 3 seconds from API call to live token on pump.fun. Your token is instantly tradeable with automated liquidity.",
+    a: "Approximately 3 seconds from API call to live token on bonk.fun. Your token is instantly tradeable with automated liquidity.",
   },
 ];
 
@@ -50,7 +50,7 @@ const FAQ = () => {
             Frequently Asked <span className="text-primary">Questions</span>
           </h2>
           <p className="text-muted-foreground text-sm">
-            Everything you need to know about ClawPump
+            Everything you need to know about ClawBonk
           </p>
         </motion.div>
 

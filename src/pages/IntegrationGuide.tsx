@@ -101,11 +101,11 @@ const IntegrationGuide = () => {
               <h1 className="text-3xl md:text-4xl font-black">
                 Integration <span className="text-primary">Guide</span>
               </h1>
-              <p className="text-sm text-muted-foreground">Complete API reference for ClawPump</p>
+              <p className="text-sm text-muted-foreground">Complete API reference for ClawBonk</p>
             </div>
           </div>
           <div className="flex items-center gap-3 mt-4">
-            <Badge className="bg-primary/15 text-primary border-primary/20 text-[10px]">Base URL: https://clawpump.tech</Badge>
+            <Badge className="bg-primary/15 text-primary border-primary/20 text-[10px]">Base URL: https://clawbonk.tech</Badge>
             <Badge variant="outline" className="text-[10px]">REST API</Badge>
             <Badge variant="outline" className="text-[10px]">No Auth Required</Badge>
           </div>
@@ -118,7 +118,7 @@ const IntegrationGuide = () => {
               <SideNav active={activeSection} onSelect={setActiveSection} />
               <div className="mt-6 p-3 bg-card border border-border/30 rounded-lg animated-border">
                 <p className="text-[10px] text-muted-foreground mb-2">Install the SDK</p>
-                <CodeBlock code="npx skills add tomi204/clawpump-skill" language="bash" />
+                <CodeBlock code="npx skills add tomi204/clawbonk-skill" language="bash" />
               </div>
             </div>
           </div>
@@ -132,15 +132,15 @@ const IntegrationGuide = () => {
               </h2>
               <div className="bg-card border border-border/30 rounded-lg p-6 animated-border mb-6">
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  ClawPump is a token launchpad and trading infrastructure built for AI agents on Solana. 
-                  Launch tokens for free via pump.fun, earn 65% of every trading fee, swap any token through Jupiter, 
+                  ClawBonk is a token launchpad and trading infrastructure built for AI agents on Solana. 
+                  Launch tokens for free via bonk.fun, earn 65% of every trading fee, swap any token through Jupiter, 
                   and scan arbitrage opportunities across 11 DEXes — all through simple REST API calls.
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {[
                     { label: "Launch Cost", value: "$0", desc: "Free forever" },
                     { label: "Fee Share", value: "65%", desc: "Of creator fees" },
-                    { label: "Launch Time", value: "~3s", desc: "To live on pump.fun" },
+                    { label: "Launch Time", value: "~3s", desc: "To live on bonk.fun" },
                     { label: "DEXes Scanned", value: "11", desc: "For arbitrage" },
                   ].map((s) => (
                     <div key={s.label} className="bg-secondary/20 rounded-lg p-3 text-center">
@@ -196,7 +196,7 @@ const IntegrationGuide = () => {
                     <div className="absolute left-[14px] top-0 h-7 w-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold z-10">1</div>
                     <h3 className="text-sm font-semibold mb-2">Upload Your Token Image</h3>
                     <p className="text-[11px] text-muted-foreground mb-3">Upload a PNG, JPEG, GIF, or WebP (max 5MB). Returns a hosted URL.</p>
-                    <CodeBlock code={`POST https://clawpump.tech/api/upload
+                    <CodeBlock code={`POST https://clawbonk.tech/api/upload
 Content-Type: multipart/form-data
 
 Body: image=<your-image-file>
@@ -204,7 +204,7 @@ Body: image=<your-image-file>
 // Response:
 {
   "success": true,
-  "imageUrl": "https://clawpump.tech/uploads/abc123.png"
+  "imageUrl": "https://clawbonk.tech/uploads/abc123.png"
 }`} />
                   </div>
 
@@ -213,16 +213,16 @@ Body: image=<your-image-file>
                     <div className="absolute left-[14px] top-0 h-7 w-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold z-10">2</div>
                     <h3 className="text-sm font-semibold mb-2">Launch Your Token</h3>
                     <p className="text-[11px] text-muted-foreground mb-3">
-                      Send your token details. It goes live on pump.fun in ~3 seconds. <code className="text-primary">walletAddress</code> receives fee distributions.
+                      Send your token details. It goes live on bonk.fun in ~3 seconds. <code className="text-primary">walletAddress</code> receives fee distributions.
                     </p>
-                    <CodeBlock code={`POST https://clawpump.tech/api/launch
+                    <CodeBlock code={`POST https://clawbonk.tech/api/launch
 Content-Type: application/json
 
 {
   "name": "My Agent Token",
   "symbol": "MAT",
   "description": "A token launched by my AI agent",
-  "imageUrl": "https://clawpump.tech/uploads/abc123.png",
+  "imageUrl": "https://clawbonk.tech/uploads/abc123.png",
   "agentId": "my-agent-123",
   "agentName": "My Agent",
   "walletAddress": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU"
@@ -233,7 +233,7 @@ Content-Type: application/json
   "success": true,
   "mintAddress": "BPFLoader...",
   "txHash": "5VERv8NMvzbJMEkV...",
-  "pumpUrl": "https://pump.fun/coin/BPFLoader...",
+  "bonkUrl": "https://bonk.fun/coin/BPFLoader...",
   "explorerUrl": "https://solscan.io/tx/5VERv8NMvzbJMEkV..."
 }`} />
                   </div>
@@ -243,7 +243,7 @@ Content-Type: application/json
                     <div className="absolute left-[14px] top-0 h-7 w-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold z-10">3</div>
                     <h3 className="text-sm font-semibold mb-2">Check Your Earnings</h3>
                     <p className="text-[11px] text-muted-foreground mb-3">Fees are collected hourly and distributed automatically. Check anytime.</p>
-                    <CodeBlock code={`GET https://clawpump.tech/api/fees/earnings?agentId=my-agent-123
+                    <CodeBlock code={`GET https://clawbonk.tech/api/fees/earnings?agentId=my-agent-123
 
 // Response:
 {
@@ -265,7 +265,7 @@ Content-Type: application/json
 
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
                   <p className="text-[11px] text-primary font-medium">
-                    🎉 That's it! Your token is live on pump.fun. You're earning 65% of every trading fee automatically.
+                    🎉 That's it! Your token is live on bonk.fun. You're earning 65% of every trading fee automatically.
                   </p>
                 </div>
               </div>
@@ -350,7 +350,7 @@ Content-Type: application/json
                     </table>
                   </div>
                   <p className="text-[10px] text-muted-foreground/50 mt-3">
-                    pump.fun charges a 1% creator fee on every trade. You receive 65%. Platform keeps 35% and covers all launch costs.
+                    bonk.fun charges a 1% creator fee on every trade. You receive 65%. Platform keeps 35% and covers all launch costs.
                   </p>
                 </div>
               </div>
@@ -532,7 +532,7 @@ const txHash = await connection.sendTransaction(tx, {
                     <code className="text-[11px] font-mono text-foreground">/api/agents/arbitrage</code>
                   </div>
                   <div className="p-5">
-                    <CodeBlock code={`POST https://clawpump.tech/api/agents/arbitrage
+                    <CodeBlock code={`POST https://clawbonk.tech/api/agents/arbitrage
 {
   "userPublicKey": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
   "pairs": [{
@@ -589,7 +589,7 @@ const txHash = await connection.sendTransaction(tx, {
               </h2>
               <div className="bg-card border border-border/30 rounded-lg p-5 animated-border">
                 <p className="text-[11px] text-muted-foreground mb-4">Subscribe to webhook alerts for new token launches and price events.</p>
-                <CodeBlock code={`POST https://clawpump.tech/api/alerts/subscribe
+                <CodeBlock code={`POST https://clawbonk.tech/api/alerts/subscribe
 {
   "webhook": "https://your-app.com/hook",
   "events": ["token.launched", "price.spike", "volume.surge"]
@@ -615,7 +615,7 @@ const txHash = await connection.sendTransaction(tx, {
               </h2>
               <div className="bg-card border border-border/30 rounded-lg p-5 animated-border">
                 <p className="text-[11px] text-muted-foreground mb-4">Search and register domains for your AI agent's web presence.</p>
-                <CodeBlock code={`GET https://clawpump.tech/api/domains/search?query=myagent
+                <CodeBlock code={`GET https://clawbonk.tech/api/domains/search?query=myagent
 
 // Response:
 [
@@ -633,11 +633,11 @@ const txHash = await connection.sendTransaction(tx, {
               </h2>
               <div className="bg-card border border-border/30 rounded-lg p-5 animated-border">
                 <p className="text-[11px] text-muted-foreground mb-4">
-                  Every token launch includes pre-populated social templates. Get discovered by @clawpumptech and the community.
+                  Every token launch includes pre-populated social templates. Get discovered by @clawbonktech and the community.
                 </p>
                 <div className="space-y-3">
                   {[
-                    { field: "twitter.template", desc: "Ready-to-post tweet with CA, pump.fun link, @clawpumptech tag" },
+                    { field: "twitter.template", desc: "Ready-to-post tweet with CA, bonk.fun link, @clawbonktech tag" },
                     { field: "twitter.tweetIntentUrl", desc: "One-click URL to post on Twitter" },
                     { field: "moltbook.template", desc: "Title and content for Moltbook post" },
                     { field: "nextSteps", desc: "Step-by-step guide to get amplified" },
@@ -658,12 +658,12 @@ const txHash = await connection.sendTransaction(tx, {
               </h2>
               <div className="bg-card border border-border/30 rounded-lg p-5 animated-border">
                 <p className="text-[11px] text-muted-foreground mb-4">Full SDK for autonomous agents. Install and integrate in seconds.</p>
-                <CodeBlock code={`# Install the ClawPump skill
-npx skills add tomi204/clawpump-skill`} language="bash" />
+                <CodeBlock code={`# Install the ClawBonk skill
+npx skills add tomi204/clawbonk-skill`} language="bash" />
                 <div className="mt-4">
-                  <CodeBlock code={`import { ClawPump } from "@clawpump/sdk"
+                  <CodeBlock code={`import { ClawBonk } from "@clawbonk/sdk"
 
-const agent = new ClawPump({ apiKey: "..." })
+const agent = new ClawBonk({ apiKey: "..." })
 
 // Launch a token
 await agent.launch({
@@ -702,7 +702,7 @@ const keypair = Keypair.generate();
 const publicKey = keypair.publicKey.toBase58();
 
 // Save private key locally — NEVER share or expose
-const walletPath = path.join(process.env.HOME || ".", ".clawpump-wallet.json");
+const walletPath = path.join(process.env.HOME || ".", ".clawbonk-wallet.json");
 fs.writeFileSync(walletPath, JSON.stringify({
   publicKey,
   secretKey: Array.from(keypair.secretKey),
@@ -721,7 +721,7 @@ console.log("Wallet created:", publicKey);`} language="js" />
                 <div className="space-y-3">
                   {[
                     { title: "Private Key Storage", desc: "Save to a local file with restricted permissions (0o600). Never store in env vars, version control, or logs." },
-                    { title: "Never Transmit Keys", desc: "Only the public address (walletAddress) is sent to ClawPump. Private keys never leave your machine." },
+                    { title: "Never Transmit Keys", desc: "Only the public address (walletAddress) is sent to ClawBonk. Private keys never leave your machine." },
                     { title: "Inform Your Operator", desc: "Print the public address and file location so the human operator can back it up." },
                     { title: "Key Loss = Fund Loss", desc: "If the private key is lost, funds are unrecoverable. If leaked, anyone can drain the wallet." },
                     { title: "Production Agents", desc: "Consider having your human operator create the wallet and pass you only the public address." },
@@ -805,8 +805,8 @@ console.log("Wallet created:", publicKey);`} language="js" />
                   <Rocket className="h-4 w-4 mr-1.5" /> Launch Your Token
                 </Button>
                 <Button variant="outline" className="border-border/40 hover:border-primary/30" asChild>
-                  <a href="https://clawpump.tech/skill.md" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4 mr-1.5" /> View on ClawPump
+                  <a href="https://clawbonk.tech/skill.md" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-4 w-4 mr-1.5" /> View on ClawBonk
                   </a>
                 </Button>
               </div>

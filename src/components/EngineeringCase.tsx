@@ -41,7 +41,6 @@ const EngineeringCase = () => {
           </p>
         </motion.div>
 
-        {/* Cost breakdown */}
         <div className="grid md:grid-cols-3 gap-3 max-w-4xl mx-auto mb-8">
           {costCards.map((card, i) => {
             const Icon = card.icon;
@@ -65,7 +64,6 @@ const EngineeringCase = () => {
           })}
         </div>
 
-        {/* Code snippet */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -80,7 +78,6 @@ const EngineeringCase = () => {
           </pre>
         </motion.div>
 
-        {/* Feature highlights */}
         <div className="grid md:grid-cols-3 gap-3 max-w-4xl mx-auto mb-8">
           {features.map((item, i) => {
             const Icon = item.icon;
@@ -103,7 +100,6 @@ const EngineeringCase = () => {
           })}
         </div>
 
-        {/* Scenarios */}
         <div className="max-w-4xl mx-auto mb-10">
           <h3 className="text-sm font-semibold mb-3 text-center">Scenarios That Work</h3>
           <div className="grid md:grid-cols-2 gap-3">
@@ -111,7 +107,7 @@ const EngineeringCase = () => {
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-className="bg-card border border-border/30 rounded-lg p-5 card-hover animated-border"
+              className="bg-card border border-border/30 rounded-lg p-5 card-hover animated-border"
             >
               <div className="flex items-center gap-2 mb-2">
                 <div className="h-6 w-6 rounded bg-primary/10 flex items-center justify-center">
@@ -144,7 +140,6 @@ className="bg-card border border-border/30 rounded-lg p-5 card-hover animated-bo
           </div>
         </div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -156,7 +151,7 @@ className="bg-card border border-border/30 rounded-lg p-5 card-hover animated-bo
             size="sm"
             className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-xs h-8 px-5 rounded-lg"
           >
-            <a href="https://clawpump.tech/skill.md" target="_blank" rel="noopener noreferrer">
+            <a href="https://clawbonk.tech/skill.md" target="_blank" rel="noopener noreferrer">
               Read the Integration Guide
               <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
             </a>
