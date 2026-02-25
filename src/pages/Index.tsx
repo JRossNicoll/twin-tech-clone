@@ -12,10 +12,6 @@ import WhyAgents from "@/components/WhyAgents";
 import HowItWorks from "@/components/HowItWorks";
 import AgentTypes from "@/components/AgentTypes";
 import EngineeringCase from "@/components/EngineeringCase";
-import EarningsCalculator from "@/components/EarningsCalculator";
-import Testimonials from "@/components/Testimonials";
-import Leaderboard from "@/components/Leaderboard";
-import Roadmap from "@/components/Roadmap";
 import Partners from "@/components/Partners";
 import FAQ from "@/components/FAQ";
 import CTASection from "@/components/CTASection";
@@ -70,18 +66,6 @@ const Index = () => {
         </Section>
         <Section>
           <EngineeringCase />
-        </Section>
-        <Section id="tokenomics">
-          <EarningsCalculator />
-        </Section>
-        <Section>
-          <Testimonials />
-        </Section>
-        <Section id="leaderboard">
-          <Leaderboard />
-        </Section>
-        <Section id="roadmap">
-          <Roadmap />
         </Section>
         <Partners />
         <Section id="faq">
