@@ -170,7 +170,7 @@ const CreatePortal = () => {
               <Button
                 onClick={handleLaunch}
                 disabled={!canSubmit || launching}
-                className="w-full h-11 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg shadow-[0_0_20px_hsl(145_100%_50%/0.15)]"
+                className="w-full h-11 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg shadow-[0_0_20px_hsl(25_95%_53%/0.15)]"
               >
                 {launching ? (
                   <>
@@ -187,7 +187,7 @@ const CreatePortal = () => {
             ) : (
               <Button
                 onClick={() => setVisible(true)}
-                className="w-full h-11 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg shadow-[0_0_20px_hsl(145_100%_50%/0.15)]"
+                className="w-full h-11 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg shadow-[0_0_20px_hsl(25_95%_53%/0.15)]"
               >
                 <Wallet className="h-4 w-4 mr-2" />
                 Connect Wallet to Launch

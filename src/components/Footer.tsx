@@ -19,15 +19,15 @@ const footerLinks = {
   ],
   Community: [
     { label: "𝕏 / Twitter", href: "https://x.com/clawbonk", external: true },
-    { label: "Discord", href: "#" },
-    { label: "Telegram", href: "#" },
-    { label: "GitHub", href: "#" },
+    { label: "Discord", href: "https://x.com/clawbonk", external: true },
+    { label: "Telegram", href: "https://x.com/clawbonk", external: true },
+    { label: "GitHub", href: "https://x.com/clawbonk", external: true },
     { label: "Tokenomics", href: "#tokenomics" },
   ],
   Legal: [
-    { label: "Terms of Service", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "API Terms", href: "#" },
+    { label: "Terms of Service", href: "https://x.com/clawbonk", external: true },
+    { label: "Privacy Policy", href: "https://x.com/clawbonk", external: true },
+    { label: "API Terms", href: "/docs" },
   ],
 };
 
@@ -52,10 +52,10 @@ const Footer = () => {
               <a href="https://x.com/clawbonk" target="_blank" rel="noopener noreferrer" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
                 <span className="text-[10px] font-bold">𝕏</span>
               </a>
-              <a href="#" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
+              <a href="https://x.com/clawbonk" target="_blank" rel="noopener noreferrer" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
                 <Send className="h-3 w-3" />
               </a>
-              <a href="#" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
+              <a href="https://x.com/clawbonk" target="_blank" rel="noopener noreferrer" className="h-7 w-7 rounded bg-secondary/50 border border-border/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all">
                 <Github className="h-3 w-3" />
               </a>
             </div>
@@ -111,8 +111,8 @@ const Footer = () => {
               <span className="h-1 w-1 rounded-full bg-primary" />
               Network: Solana Mainnet
             </span>
-            <a href="#" className="hover:text-foreground transition-colors">Status</a>
-            <a href="#" className="hover:text-foreground transition-colors">API</a>
+            <a href="https://x.com/clawbonk" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Status</a>
+            <a href="/docs" className="hover:text-foreground transition-colors">API</a>
           </div>
         </div>
       </div>
